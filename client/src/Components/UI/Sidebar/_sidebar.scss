@@ -1,0 +1,170 @@
+.sidebar {
+    position: absolute;
+    min-width: 250px;
+    max-width: 250px;
+    height: 100vh;
+    background: transparent;
+    border-right: 0;
+    box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.05);
+    z-index: 1;
+    transition: transform 1.5s ease, top 1.5s ease;
+    
+    &.closed { 
+        transform: translateX(-100%); 
+        transition: transform 1.5s ease, top 1s ease;
+    }
+    
+    .sidebar-content {
+        background: #fff;
+        height: 100%;
+        min-height: 100%;
+        display: flex;
+        flex-direction: column;
+    
+        .sidebar-brand, 
+        .sidebar-brand:hover {
+            padding: 15px;
+            background: $sidebar-brand-background;
+            font-size: 20px;
+            font-weight: 500;
+            color: #fff;
+            width: 100%;
+            display: block;
+            text-decoration: none;
+            text-align: center;
+    
+            .logo {
+                width: 85px;
+            }
+        }
+    
+        .sidebar-user {
+            padding: 20px 15px 15px;
+            background: #2f323a;
+            color: #fff;
+            text-align: center;
+            img {
+                width: 64px;
+                height: 64px;
+            }
+        }
+    
+        .sidebar-nav {
+            margin-bottom: 0;
+            padding-left: 0;
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            flex: 1;
+            background: #2f323a;
+            [data-toggle="collapse"]:before {
+                content: " ";
+                border: solid;
+                border-width: 0 .1rem .1rem 0;
+                display: inline-block;
+                padding: 2.5px;
+                transform: rotate(-45deg);
+                position: absolute;
+                top: 1.2rem;
+                right: 1.25rem;
+                transition: all .2s ease-out;
+            }
+    
+            .sidebar-header {
+                background: transparent;
+                color: #adb5bd;
+                padding: 15px 0px 0px 15px;
+                font-size: 10px;
+                font-weight: 500;
+                text-transform: none;
+            }
+    
+            .sidebar-text {
+                margin-left: 30px;
+                font-size: $font-size-sidebar;
+            }
+    
+            .sidebar-link, 
+            a.sidebar-link {
+                display: block;
+                padding: 12px 12px;
+                margin: 0 10px;
+                color: $font-color-sidebar;
+                font-weight: 400;
+                background: transparent;
+                border-radius: 0.2rem;
+                transition: background .1s ease-in-out;
+                position: relative;
+                text-decoration: none;
+                cursor: pointer;
+                
+                &:hover {
+                    background-color: rgba(255,255,255,.2);
+                }
+                
+                i {
+                    text-align: center;
+                    width: 24px;
+                    height: 24px;
+                    line-height: 34px;
+                    position: absolute;
+                    left: 5px;
+                    top: 50%;
+                    margin-top: -17px;
+                    font-size: 20px;
+                    transition: color 300ms;
+                }
+            }
+            .show.dropright.btn-group {
+                width: 100%;
+            }
+            
+            button#dropdown-button-drop-right {
+                text-align: left;
+                background: transparent;
+                border: none;
+                box-shadow: none;
+                padding: 0 0 0 30px;
+                font-size: $font-size-sidebar;
+                color: $font-color-sidebar;
+            }
+            
+            .dropright .dropdown-toggle::after {
+                float: right;
+                right: 15px;
+                position: relative;
+                margin-top: 8px;
+                color: $font-color-sidebar;
+            }
+            
+            .dropdown-menu.show {
+                left: -25px;
+            }
+            
+            .dropdown-item:focus, 
+            .dropdown-item:hover {
+                color: #000;
+                text-decoration: none;
+                background-color: #aeb2b7;
+            }
+        }
+    }
+}
+
+.dropright.btn-group {
+    width: 100%;
+}
+
+img.painel-control {
+    width: 20px;
+    height: 20px;
+}
+
+.svg-inline--fa {
+    display: inline-block;
+    font-size: inherit;
+    height: 1em;
+    overflow: visible;
+    vertical-align: -0.125em;
+}

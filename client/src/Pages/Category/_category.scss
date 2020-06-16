@@ -1,0 +1,31 @@
+.categorias {
+    .list {
+        padding: 0;
+        list-style: none;
+    }
+    form {
+        display: flex;
+    }
+    .btn-categories {
+        width: 200px !important;
+    }
+    .delete-btn {
+        cursor: pointer;
+        background-color: #e74c3c;
+        border: 0;
+        color: #fff;
+        font-size: 20px;
+        line-height: 20px;
+        padding: 2px 5px;
+        left: 0;
+      }
+}
+
+.add {
+    color: #fff;
+    box-shadow: 0 4px 4px 0 rgba(17, 195, 139, .2);
+    border: none;
+    border-radius: 4px;
+    height: 44px;
+    width: 100%;
+  }

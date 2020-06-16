@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap');
+
+@import "./assets/SCSS/variables";
+@import "./Components/UI/Nav/nav";
+@import "./Components/UI/Sidebar/sidebar";
+@import "./Components/UI/Forms/forms";
+@import "./Components/UI/Modal/modal";
+@import "./Components/Cards/cards";
+@import "./Pages/Category/category";
+@import "./Pages/TypeCategory/typecategory";
+
+body {
+  margin: 0;
+  font-family: $font-family;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #22242a;
+  text-align: left;
+  .wrapper {
+    align-items: stretch;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+    height:100vh;
+    min-height:100vh;
+    .main {
+      width: 100%;
+      min-height: 100vh;
+      min-width: 0;
+      transition: margin-left 1s ease-in-out, left 1s ease-in-out;
+      background: #f4f7fa;
+      margin-left: 250px;
+
+      &.closed { margin-left: 0px; }
+      
+      .content {
+        padding: 15px;
+      }
+    }
+  }
+}
+
+input[type='text'],
+input[type='number'],
+input[type='email'],
+input[type='password'],
+select {
+  border: 1px solid #dedede;
+  border-radius: 2px;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  width: 100%;
+}
+
+.fa {
+  font-size: 25px;
+}
+
+.chart-liner {
+  width: 650px;
+}

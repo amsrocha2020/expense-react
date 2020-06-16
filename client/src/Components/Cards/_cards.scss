@@ -1,0 +1,39 @@
+.card {
+    margin-bottom: 1.875em;
+    border-radius: 5px;
+    padding: 0;
+    font-size: 30px;
+    color: #fff;
+    word-wrap: normal;
+    border: none;
+    -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    .card-body {
+        float: left;
+        padding: 20px;
+        position: relative;
+        width: 100%;
+        .cards-description {
+            color: #fff;
+            font-size: 15px;
+            word-wrap: normal;
+            text-align: left;
+        }
+        .cards-subdescription {
+            color: #fff;
+            font-size: 12px;
+            word-wrap: normal;
+            text-align: left;
+        }
+    }
+}
+
+.earn {
+    background-image: linear-gradient(to top, #0ba360 0%, #3cba92 100%) !important;
+}
+.costs {
+    background-image: linear-gradient(to top, #93291E 0%, #ED213A 100%) !important;
+}
+.savings {
+    background-image: linear-gradient(-20deg, #2b5876 0%, #4e4376 100%) !important;
+}
