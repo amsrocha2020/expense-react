@@ -1,5 +1,5 @@
 const moongose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const UserSchema = new moongose.Schema({
     firstName: {
@@ -12,11 +12,14 @@ const UserSchema = new moongose.Schema({
     },
     email: {
         type: String,
-        default: ''
+        default: '',
+        required: true,
+        unique: true
     },
     password: {
         type: String,
-        default: ''
+        default: '',
+        required: true
     },
     isDeleted: {
         type: Boolean,
@@ -32,4 +35,4 @@ UserSchema.methods.validPassword = function(password) {
     return bcrypt.compareSync(password, this.password);
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = moongose.model('User', UserSchema);

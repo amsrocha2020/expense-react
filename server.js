@@ -12,6 +12,7 @@ const categories = require('./routes/categories');
 const typeCategories = require('./routes/typeCategories');
 const transactions = require('./routes/transactions');
 //const signup = require('./routes/signin');
+const user = require('./routes/userRouter');
 
 const app = express();
 
@@ -25,7 +26,7 @@ if(process.env.NODE_ENV === 'development') {
 app.use('/categories', categories);
 app.use('/dashboard', transactions);
 app.use('/typecategories', typeCategories);
-//app.use('/api/account/', signup);
+app.use('/users', user);
 
 
 if(process.env.NODE_ENV === 'production') {
