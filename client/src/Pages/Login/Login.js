@@ -1,48 +1,36 @@
-import React, { useContext } from "react";
+import React from 'react';
 
 import "./Login.css";
-import { AuthContext } from "../../context/auth-context";
 
-const login = (props) => {
-    const authContext = useContext(AuthContext);
-
-    const loginHandler = (e) => {
-        authContext.login();
-    };
-
-return (
+const login = (props) => (
     <div>
-      <div className="container-login">
-        <div className="wrap-login">
-          <form className="login-form" action="">
-            <span className="login-form-title">LOGIN</span>
-            <span className="pb-1">USERNAME</span>
-            <div
-              className="wrap-input validate-input"
-              data-validate="Username is required"
-            >
-              <input className="input" type="text" name="username" />
-              <span className="focus-input"></span>
+        <div className="container-login">
+            <div className="wrap-login">
+            <form className="login-form" action="">
+                <span className="login-form-title">LOGIN</span>
+                <span className="pb-1">USERNAME</span>
+            <div className="wrap-input validate-input" data-validate="Username is required">
+                <input className="input" type="text" name="username" />
+                <span className="focus-input"></span>
             </div>
             <span className="pb-1">PASSWORD</span>
-            <div
-              className="wrap-input validate-input"
-              data-validate="Password is required"
-            >
-              <span className="btn-show-pass">
-                <i className="fa fa-eye"></i>
-              </span>
-              <input className="input" type="password" name="pass" />
-              <span className="focus-input"></span>
+            <div className="wrap-input validate-input" data-validate="Password is required">
+                <span className="btn-show-pass">
+                    <i className="fa fa-eye"></i>
+                </span>
+                <input className="input" type="password" name="pass" />
+                <span className="focus-input"></span>
             </div>
             <div className="container-login-form-btn">
-              <button className="login-form-btn" onClick={loginHandler}>Login</button>
+            <button className="login-form-btn">
+            Login
+            </button>
             </div>
-          </form>
+        </form>
+            </div>
         </div>
-      </div>
     </div>
-  );
-};
+    
+    );
 
-export default login;
+    export default login;

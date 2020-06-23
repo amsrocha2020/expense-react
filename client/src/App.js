@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { useBetween } from "use-between";
 
@@ -10,20 +10,20 @@ import TypeCategory from './Pages/TypeCategory/TypeCategory';
 import User from './Pages/Users/User';
 import useShareableState from "./useShareableState/useShareableState";
 
-import Login from './Pages/Login/Login';
-import { AuthContext } from './context/auth-context';
+// import Login from './Components/Login/Login';
 
 import { GlobalProvider } from './context/GlobalState';
 
 import './App.css';
 
-const App = props => {
+
+function App() {
   const { leftOpen } = useBetween(useShareableState);
-  const authContext = useContext(AuthContext);
 
   let leftOpenSide = leftOpen ? "open" : "closed";
-   
-  let inside = <GlobalProvider>
+
+  return (
+    <GlobalProvider>
     <div className="wrapper">
       <Sidebar/>
       <div className={`main ${leftOpenSide}`}>
@@ -31,6 +31,7 @@ const App = props => {
         <div className="content">
         <Router>
             <Switch>
+              {/* <Route exact path="/login" component={Login} /> */}
               <Route exact path="/user" component={User} />
               <Route exact path="/categories" component={Category} />
               <Route exact path="/typecategories" component={TypeCategory} />
@@ -41,14 +42,8 @@ const App = props => {
         </div>
       </div>
     </div>
-    </GlobalProvider>;
-  
-    let content = <Login />
-    if (authContext.isAuth) {
-      content = inside;
-    }
-
-    return content;
+    </GlobalProvider>
+  );
 }
 
 export default App;
