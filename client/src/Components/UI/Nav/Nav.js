@@ -2,6 +2,7 @@ import React from "react";
 
 import { useBetween } from "use-between";
 
+import AuthOptions from "../../auth/AuthOptions";
 import useShareableState from "../../../useShareableState/useShareableState";
 
 const nav = (props) => {
@@ -9,7 +10,10 @@ const nav = (props) => {
 
   return (
     <div className="navbar navbar-expand">
-      <span className="sidebar-toggle d-flex mr-2" onClick={() => setleftOpen(!leftOpen)}>
+      <span
+        className="sidebar-toggle d-flex mr-2"
+        onClick={() => setleftOpen(!leftOpen)}
+      >
         <i className="hamburger align-self-center"></i>
       </span>
       <form className="form-inline">
@@ -36,7 +40,10 @@ const nav = (props) => {
               alt="settings"
             />
           </li>
-  <li className="nav-item logout">Logout</li>
+          {/* <li className="nav-item logout">Logout</li> */}
+          <li>
+            <AuthOptions />
+          </li>
         </ul>
       </div>
     </div>
