@@ -1,5 +1,10 @@
 export default (state = [], action) => {
   switch (action.type) {
+    case "CHECK_LOG":
+      return {
+        ...state,
+        userData: action.payload,
+      };
     case "GET_CATEGORIES":
       return {
         ...state,
