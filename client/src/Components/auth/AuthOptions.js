@@ -21,8 +21,7 @@ export default function AuthOptions() {
 
     return(
         <div>
-            {/* {userData.user ? ( */}
-            {true ? ( 
+            {userData ? (
                 <button onClick={logout}>Logout</button>
                 ) : (
                     <div>

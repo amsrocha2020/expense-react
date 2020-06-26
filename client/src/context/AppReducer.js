@@ -23,6 +23,11 @@ export default (state = [], action) => {
           (category) => category._id !== action.payload
         ),
       };
+    case "CHECK_LOG_ERROR":
+      return {
+        ...state,
+        error: action.payload,
+      };
     case "CATEGORY_ERROR":
       return {
         ...state,
@@ -54,12 +59,12 @@ export default (state = [], action) => {
         transactions: action.payload,
       };
     case "DELETE_TRANSACTIONS":
-        return {
-          ...state,
-          transactions: state.transactions.filter(
-            (transaction) => transaction._id !== action.payload
-          ),
-        };
+      return {
+        ...state,
+        transactions: state.transactions.filter(
+          (transaction) => transaction._id !== action.payload
+        ),
+      };
     case "TRANSACTIONS_ERROR":
       return {
         ...state,

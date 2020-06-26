@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import "./Login.css";
 
@@ -6,7 +6,6 @@ import { GlobalContext } from "../../context/GlobalState";
 
 const login = (props) => {
     const { checkLoggedIn } = useContext(GlobalContext);
-    // console.log("Login ->", checkLoggedIn);
 
     useEffect(() => {
         checkLoggedIn();

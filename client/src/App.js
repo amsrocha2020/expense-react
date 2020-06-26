@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import axios from 'axios';
 import { useBetween } from "use-between";
 
 import Sidebar from './Components/UI/Sidebar/Sidebar';
@@ -14,44 +13,10 @@ import User from './Pages/Users/User';
 import useShareableState from "./useShareableState/useShareableState";
 
 import { GlobalProvider } from './context/GlobalState';
-import { GlobalContext } from "./context/GlobalState";
 
 import './App.css';
 
 const App = () =>  {
-
-    // const [userData, setUserData] = useState({
-    //   token: undefined,
-    //   user: undefined,
-    // });
-
-  // useEffect(() => {
-  //   const checkLoggedIn = async () => {
-  //     let token = localStorage.getItem("auth-token");
-  //     if (token === null) {
-  //       localStorage.setItem("auth-token", "");
-  //       token = "";
-  //     }
-    
-  //     const tokenRes = await axios.post(
-  //       "/users/tokenIsValid",
-  //       null,
-  //       { headers: {'x-auth-token': token}}
-  //       );
-  //       if (tokenRes.data) {
-  //         const userRes = await axios.get("/users/", { 
-  //             headers: {'x-auth-token': token}
-  //           });
-  //       setUserData({
-  //         token,
-  //         user: userRes.data
-  //       });    
-
-  //       console.log("App -> ", userRes.data);
-  //       }
-  //   }
-  //   checkLoggedIn();
-  // }, [])
 
   const { leftOpen } = useBetween(useShareableState);
   let leftOpenSide = leftOpen ? "open" : "closed";

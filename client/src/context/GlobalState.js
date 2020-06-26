@@ -10,7 +10,6 @@ const initialState = {
   transactions: [],
   error: null,
   loading: true,
-  token: undefined,
   userData: undefined,
 };
 
@@ -22,8 +21,7 @@ export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
 
   // Actions
-  async function checkLoggedIn() {
-    
+  async function checkLoggedIn() {  
     try {
       let token = localStorage.getItem("auth-token");
       if (token === null) {
@@ -40,14 +38,14 @@ export const GlobalProvider = ({ children }) => {
         });
         dispatch({
           type: "CHECK_LOG",
-          payload: userRes.data.data,
+          payload: userRes.data,
         });
-        console.log(userRes);
+        console.log("Global -> ", userRes.data);
       }
       
     } catch (err) {
       dispatch({
-        type: "CATEGORY_ERROR",
+        type: "CHECK_LOG_ERROR",
         payload: err.response.data.error,
       });
     }
@@ -204,8 +202,7 @@ export const GlobalProvider = ({ children }) => {
         transactions: state.transactions,
         error: state.error,
         loading: state.loading,
-        token: state.token,
-        user: state.user,
+        userData: state.userData,
         getCategories,
         addCategory,
         deleteCategory,
