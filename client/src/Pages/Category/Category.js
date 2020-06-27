@@ -7,8 +7,7 @@ const Categories = () => {
   const [text, setText] = useState('');
   const { categories, getCategories } = useContext(GlobalContext);
   const { addCategory, deleteCategory } = useContext(GlobalContext);
-  const context = useContext(GlobalContext);
-  console.log("CAT -> ", context);
+
   const onSubmit = e => {
     e.preventDefault();
 

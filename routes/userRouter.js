@@ -58,6 +58,7 @@ router.post('/register', async (req, res) => {
 // Login User
 router.post('/login', async (req, res) => {
     try{
+        console.log("entrou");
         const { email, password } = req.body;
 
         // Validate

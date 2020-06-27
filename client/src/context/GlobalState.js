@@ -19,11 +19,13 @@ export const GlobalContext = createContext(initialState);
 // Provider component
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
-
+  
   // Actions
   async function checkLoggedIn() {  
     try {
+      
       let token = localStorage.getItem("auth-token");
+      console.log("token -> ",token);
       if (token === null) {
         localStorage.setItem("auth-token", "");
         token = "";
@@ -32,15 +34,19 @@ export const GlobalProvider = ({ children }) => {
       const tokenRes = await axios.post("/users/tokenIsValid", null, {
         headers: { "x-auth-token": token },
       });
+      
+      console.log("tokenRes -> ", tokenRes);
+
       if (tokenRes.data) {
         const userRes = await axios.get("/users/", {
           headers: { "x-auth-token": token },
         });
+        
         dispatch({
           type: "CHECK_LOG",
           payload: userRes.data,
         });
-        console.log("Global -> ", userRes.data);
+        
       }
       
     } catch (err) {
@@ -48,6 +54,30 @@ export const GlobalProvider = ({ children }) => {
         type: "CHECK_LOG_ERROR",
         payload: err.response.data.error,
       });
+    }
+  }
+
+  async function userLog(userData) {
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      console.log("chegou aqui!", userData);
+      const res = await axios.post("/users/login", userData, config);
+      
+      localStorage.setItem("auth-token", res.data.token);
+
+      dispatch({
+        type: "USER_LOG",
+        payload: res.data.data,
+      });
+
+    } catch (err) {
+      
     }
   }
 
@@ -212,6 +242,7 @@ export const GlobalProvider = ({ children }) => {
         getTypeCategories,
         deleteTypeCategories,
         checkLoggedIn,
+        userLog
       }}
     >
       {children}

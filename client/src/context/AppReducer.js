@@ -5,6 +5,11 @@ export default (state = [], action) => {
         ...state,
         userData: action.payload,
       };
+    case "USER_LOG":
+      return {
+        ...state,
+        userData: action.payload,
+      };
     case "GET_CATEGORIES":
       return {
         ...state,

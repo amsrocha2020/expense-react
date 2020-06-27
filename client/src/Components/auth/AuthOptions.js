@@ -1,23 +1,26 @@
-import React, { useContext } from 'react';
-import { useHistory } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from "react-router-dom";
 import { GlobalContext } from '../../context/GlobalState';
 
 export default function AuthOptions() {
-    const { userData, setuserData } = useContext(GlobalContext);
+    const { checkLoggedIn } = useContext(GlobalContext);
+    let { userData } = useContext(GlobalContext);
 
     let history = useHistory();
 
     const register = () => history.push("/register");
     const login    = () => history.push("/login");
     const logout   = () => {
-        setuserData({
-            token: undefined,
-            userData: undefined
-        });
+        userData = undefined;
+        history.push("/login");
         localStorage.setItem("auth-token", "");
     };
     
     console.log("Auth -> ", userData);
+
+    useEffect(() => {
+        checkLoggedIn();
+      }, []);
 
     return(
         <div>
