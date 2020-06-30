@@ -11,6 +11,7 @@ const initialState = {
   error: null,
   loading: true,
   userData: undefined,
+  isAuthenticated: false
 };
 
 // Create context
@@ -25,7 +26,6 @@ export const GlobalProvider = ({ children }) => {
     try {
       
       let token = localStorage.getItem("auth-token");
-      console.log("token -> ",token);
       if (token === null) {
         localStorage.setItem("auth-token", "");
         token = "";
@@ -35,8 +35,6 @@ export const GlobalProvider = ({ children }) => {
         headers: { "x-auth-token": token },
       });
       
-      console.log("tokenRes -> ", tokenRes);
-
       if (tokenRes.data) {
         const userRes = await axios.get("/users/", {
           headers: { "x-auth-token": token },
@@ -57,7 +55,7 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
-  async function userLog(userData) {
+  async function logIn(userData) {
 
     const config = {
       headers: {
@@ -66,16 +64,14 @@ export const GlobalProvider = ({ children }) => {
     };
 
     try {
-      console.log("chegou aqui!", userData);
       const res = await axios.post("/users/login", userData, config);
-      
       localStorage.setItem("auth-token", res.data.token);
-
+      
       dispatch({
-        type: "USER_LOG",
+        type: "LOGIN_REQUEST",
         payload: res.data.data,
       });
-
+      
     } catch (err) {
       
     }
@@ -233,6 +229,7 @@ export const GlobalProvider = ({ children }) => {
         error: state.error,
         loading: state.loading,
         userData: state.userData,
+        isAuthenticated: state.isAuthenticated,
         getCategories,
         addCategory,
         deleteCategory,
@@ -242,7 +239,7 @@ export const GlobalProvider = ({ children }) => {
         getTypeCategories,
         deleteTypeCategories,
         checkLoggedIn,
-        userLog
+        logIn
       }}
     >
       {children}

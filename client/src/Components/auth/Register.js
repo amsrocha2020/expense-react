@@ -1,4 +1,4 @@
-import React, { useState, useContext } from "react";
+import React, { Fragment, useState, useContext } from "react";
 import { useHistory } from 'react-router-dom';
 import { GlobalContext } from '../../context/GlobalState';
 import axios from 'axios';
@@ -11,7 +11,7 @@ const register = (props) => {
     const [ firstName, setFirstName ] = useState();
     const [ lastName, setLastName ] = useState();
 
-    const { setUserData } = useContext(GlobalContext);
+    // const { setUserData } = useContext(GlobalContext);
     const history = useHistory();
 
     const submit = async (e) => {
@@ -24,17 +24,17 @@ const register = (props) => {
             "/users/login", 
             { email, password }
         );
-        setUserData({
-            token: loginRes.data.token,
-            user: loginRes.data.user,
-            email: loginRes.data.email
-        });
+        // setUserData({
+        //     token: loginRes.data.token,
+        //     user: loginRes.data.user,
+        //     email: loginRes.data.email
+        // });
         localStorage.setItem("auth-token", loginRes.data.token);
         history.push("/");
     }
 
   return (
-    <div>
+    <Fragment>
       <div className="container-login">
         <div className="wrap-login">
           <form onSubmit={submit} className="login-form" action="">
@@ -92,7 +92,7 @@ const register = (props) => {
           </form>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

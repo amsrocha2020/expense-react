@@ -22,7 +22,7 @@ const TypeCategory = () => {
       <ul className="list mt-5">
       { Object.keys(typecategories).length > 0 ?
         typecategories.map((typecategory) => (
-          <li className="mb-3" key={typecategory.id}>
+          <li className="mb-3" key={typecategory._id}>
             <button key={typecategory.id} onClick={() => deleteTypeCategories(typecategory._id)} className="delete-btn mr-3">x</button>
             {typecategory.name}
           </li>

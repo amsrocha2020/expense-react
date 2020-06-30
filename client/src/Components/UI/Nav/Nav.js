@@ -40,7 +40,6 @@ const nav = (props) => {
               alt="settings"
             />
           </li>
-          {/* <li className="nav-item logout">Logout</li> */}
           <li>
             <AuthOptions />
           </li>

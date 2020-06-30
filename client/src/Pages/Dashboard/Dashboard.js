@@ -31,7 +31,7 @@ const dashboard = (props) => {
 
   const deleteTransactionById = () => {
     // let arrayId = [];
-    console.log("Dasboard -> ", "Sim");
+    // console.log("Dasboard -> ", "Sim");
 
   }
   

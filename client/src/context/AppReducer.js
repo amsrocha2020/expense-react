@@ -5,9 +5,17 @@ export default (state = [], action) => {
         ...state,
         userData: action.payload,
       };
-    case "USER_LOG":
+    case "LOGIN_REQUEST":
       return {
         ...state,
+        isAuthenticated: true,
+        userData: action.payload,
+      };
+    case "LOGOUT":
+      localStorage.clear();
+      return {
+        ...state,
+        isAuthenticated: false,
         userData: action.payload,
       };
     case "GET_CATEGORIES":
@@ -57,7 +65,6 @@ export default (state = [], action) => {
         error: action.payload,
       };
     case "GET_TRANSACTIONS":
-      // console("Action ->", action.type);
       return {
         ...state,
         loading: false,

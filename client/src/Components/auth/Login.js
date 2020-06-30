@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext, useState, Fragment } from 'react';
 
 import "./Login.css";
 
@@ -6,8 +6,7 @@ import { GlobalContext } from "../../context/GlobalState";
 import { useHistory } from 'react-router-dom';
 
 const login = () => {
-    const { checkLoggedIn } = useContext(GlobalContext);
-    const { userLog } = useContext(GlobalContext);
+    const { isAuthenticated, logIn } = useContext(GlobalContext);
 
     const [ email, setEmail ] = useState();
     const [ password, setPassword ] = useState();
@@ -17,17 +16,13 @@ const login = () => {
     const submit = (e) => {
       e.preventDefault();
       const loginUser = { email, password };   
-      userLog(loginUser);
-
+      logIn(loginUser);
+      console.log("Login -> ", isAuthenticated)
       history.push("/");
   }
 
-    useEffect(() => {
-        checkLoggedIn();
-      }, []);
-
   return (
-    <div>
+    <Fragment>
       <div className="container-login">
         <div className="wrap-login">
           <form className="login-form" onSubmit={submit}>
@@ -51,13 +46,14 @@ const login = () => {
               <input className="input" type="password" name="pass" id="password" onChange={e => setPassword(e.target.value)}/>
               <span className="focus-input"></span>
             </div>
+            <span>Do you want to <a href="/register">register</a>?</span>
             <div className="container-login-form-btn">
               <button className="login-form-btn">Login</button>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 

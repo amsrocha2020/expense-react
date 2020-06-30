@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const cards = (props) => (
-   <div>
+   <Fragment>
     <div className={"card " + props.cardClass}>
       <div className="card-body text-center">
         <div className="row">
@@ -15,7 +15,7 @@ const cards = (props) => (
         </div>
       </div>
     </div>
-  </div>
+  </Fragment>
     );
 
     export default cards;

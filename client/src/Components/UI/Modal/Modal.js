@@ -2,7 +2,6 @@ import React from "react";
 import { Modal } from 'react-bootstrap';
 
 const modal = (props) => {
-// console.log("Modal -> ", props);
   return(
     <Modal
     {...props}

@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from 'react-router-dom'
 
 import { Dropdown, ButtonGroup, DropdownButton } from "react-bootstrap";
 import useShareableState from "../../../useShareableState/useShareableState";
+
+import { GlobalContext } from '../../../context/GlobalState';
 import { useBetween } from "use-between";
 
 const sidebar = (props) => {
   const { leftOpen } = useBetween(useShareableState);
- 
   let leftOpenSide = leftOpen ? "open" : "closed";
+
+  let { userData } = useContext(GlobalContext);
+
+  // console.log("Sidebar -> ", userData);
 
   return (
     <nav className={`sidebar ${leftOpenSide}`}>
@@ -27,38 +33,38 @@ const sidebar = (props) => {
             className="img-fluid rounded-circle mb-2"
             alt="Miguel Rocha"
           />
-          <div className="sidebar-username">Miguel Rocha</div>
+          <div className="sidebar-username"> {userData ? (userData.firstName + " " + userData.lastName )  : 'No Name'} </div>
         </div>
         <ul className="sidebar-nav">
           <li className="sidebar-header">Main Section</li>
           <li className="sidebar-item">
-            <a className="sidebar-link" href="/dashboard">
+            <Link className="sidebar-link" to="/dashboard">
               <i className="fa fa-tachometer" aria-hidden="true"></i>
               <span className="sidebar-text">Dashboard</span>
-            </a>
+            </Link>
           </li>
           <li className="sidebar-item">
-            <a className="sidebar-link" href="/dashboard">
+            <Link className="sidebar-link" to="/dashboard">
               <i className="fa fa-briefcase" aria-hidden="true"></i>
               <span className="sidebar-text">Budgets</span>
-            </a>
+            </Link>
           </li>
           <li className="sidebar-item">
-            <a className="sidebar-link" href="/categories">
+            <Link className="sidebar-link" to="/categories">
               <i className="fa fa-th-list" aria-hidden="true"></i>
               <span className="sidebar-text">Categories</span>
-            </a>
+            </Link>
           </li>
           <li className="sidebar-item">
-            <a className="sidebar-link" href="/typecategories">
+            <Link className="sidebar-link" to="/typecategories">
               <i className="fa fa-th-list" aria-hidden="true"></i>
               <span className="sidebar-text">Type Categories</span>
-            </a>
+            </Link>
           </li>
 
           <li className="sidebar-header">Definitions</li>
           <li className="sidebar-item">
-            <a className="sidebar-link" href="#">
+            <Link className="sidebar-link" to="#">
               <i className="fa fa-user" aria-hidden="true"></i>
               {["right"].map((direction) => (
                 <DropdownButton
@@ -77,7 +83,7 @@ const sidebar = (props) => {
                   </Dropdown.Item>
                 </DropdownButton>
               ))}
-            </a>
+            </Link>
           </li>
         </ul>
       </div>

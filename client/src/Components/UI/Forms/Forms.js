@@ -27,7 +27,7 @@ const forms = (props) => {
       amount: amount,
     };
 
-    console.log("Form -> ", newTransaction);
+    // console.log("Form -> ", newTransaction);
     addTransactions(newTransaction);
   };
 

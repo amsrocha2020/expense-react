@@ -1,37 +1,35 @@
-import React, { useContext, useEffect } from 'react';
+import React, { Fragment, useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { GlobalContext } from '../../context/GlobalState';
 
 export default function AuthOptions() {
-    const { checkLoggedIn } = useContext(GlobalContext);
-    let { userData } = useContext(GlobalContext);
+    const { checkLoggedIn } = useContext(GlobalContext)
+    let { isAuthenticated, setIsAuthenticated } = useContext(GlobalContext)
 
-    let history = useHistory();
+    let history = useHistory()
 
     const register = () => history.push("/register");
     const login    = () => history.push("/login");
     const logout   = () => {
-        userData = undefined;
-        history.push("/login");
-        localStorage.setItem("auth-token", "");
+        isAuthenticated = false
+        localStorage.setItem("auth-token", "")
+        history.push("/login")
     };
     
-    console.log("Auth -> ", userData);
-
     useEffect(() => {
         checkLoggedIn();
       }, []);
 
     return(
-        <div>
-            {userData ? (
+        <Fragment>
+            {isAuthenticated ? (
                 <button onClick={logout}>Logout</button>
                 ) : (
                     <div>
-                        <button onClick={register}>Register</button>
+                        <button className="mr-3" onClick={register}>Register</button>
                         <button onClick={login}>Login</button>
                     </div>
                 )}
-        </div>
+        </Fragment>
     )
 }
