@@ -9,18 +9,22 @@ import Sidebar from "./Components/UI/Sidebar/Sidebar";
 import Nav from "./Components/UI/Nav/Nav";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  let { isAuthUser } = useContext(GlobalContext);
+  // let { user } = useContext(GlobalContext);
+
+  console.log("[PrivateRoute] isAuthUser >> ", isAuthUser);
+
+  // let userLog = (user != undefined) ? true : false
+
   const { leftOpen } = useBetween(useShareableState);
   let leftOpenSide = leftOpen ? "open" : "closed";
-
-  let { isAuthenticated } = useContext(GlobalContext);
-  
-  console.log("PrivateRoute isAuthenticated -> ", isAuthenticated);
 
   return (
     <Route
       {...rest}
       render={(props) =>
-          isAuthenticated ? (
+        isAuthUser ? (
+          // userLog ? (
           <div className="wrapper">
             <Sidebar />
             <div className={`main ${leftOpenSide}`}>
@@ -40,4 +44,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default PrivateRoute;
+export default React.memo(PrivateRoute);

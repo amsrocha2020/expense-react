@@ -1,12 +1,13 @@
-import React, { useEffect, useContext, useState, Fragment } from 'react';
+import React, { useContext, useState, Fragment } from 'react';
 
 import "./Login.css";
 
 import { GlobalContext } from "../../context/GlobalState";
 import { useHistory } from 'react-router-dom';
 
-const login = () => {
-    const { isAuthenticated, logIn } = useContext(GlobalContext);
+const Login = () => {
+  const { logIn } = useContext(GlobalContext);
+  // console.log("[Login]  isAuthUser >> ", isAuthUser)
 
     const [ email, setEmail ] = useState();
     const [ password, setPassword ] = useState();
@@ -15,9 +16,10 @@ const login = () => {
 
     const submit = (e) => {
       e.preventDefault();
-      const loginUser = { email, password };   
-      logIn(loginUser);
-      console.log("Login -> ", isAuthenticated)
+      
+      const userData = { email, password };   
+      logIn(userData);
+
       history.push("/");
   }
 
@@ -57,4 +59,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

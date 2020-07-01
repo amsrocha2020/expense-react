@@ -11,9 +11,9 @@ const sidebar = (props) => {
   const { leftOpen } = useBetween(useShareableState);
   let leftOpenSide = leftOpen ? "open" : "closed";
 
-  let { userData } = useContext(GlobalContext);
+  let { user } = useContext(GlobalContext);
 
-  // console.log("Sidebar -> ", userData);
+  // console.log("Sidebar -> ", user);
 
   return (
     <nav className={`sidebar ${leftOpenSide}`}>
@@ -33,7 +33,7 @@ const sidebar = (props) => {
             className="img-fluid rounded-circle mb-2"
             alt="Miguel Rocha"
           />
-          <div className="sidebar-username"> {userData ? (userData.firstName + " " + userData.lastName )  : 'No Name'} </div>
+          <div className="sidebar-username"> {user ? (user.firstName + " " + user.lastName )  : 'No Name'} </div>
         </div>
         <ul className="sidebar-nav">
           <li className="sidebar-header">Main Section</li>

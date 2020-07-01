@@ -2,16 +2,19 @@ import React, { Fragment, useContext, useEffect } from 'react';
 import { useHistory } from "react-router-dom";
 import { GlobalContext } from '../../context/GlobalState';
 
-export default function AuthOptions() {
+function AuthOptions() {
     const { checkLoggedIn } = useContext(GlobalContext)
-    let { isAuthenticated, setIsAuthenticated } = useContext(GlobalContext)
+    let { user, isAuthUser } = useContext(GlobalContext)
 
     let history = useHistory()
 
     const register = () => history.push("/register");
     const login    = () => history.push("/login");
     const logout   = () => {
-        isAuthenticated = false
+        isAuthUser = false
+        user = {}
+        console.log("[AuthOptions] isAuthUser >> ", isAuthUser)
+        console.log("[AuthOptions] User Data -> ", user)
         localStorage.setItem("auth-token", "")
         history.push("/login")
     };
@@ -22,7 +25,7 @@ export default function AuthOptions() {
 
     return(
         <Fragment>
-            {isAuthenticated ? (
+            {isAuthUser ? (
                 <button onClick={logout}>Logout</button>
                 ) : (
                     <div>
@@ -33,3 +36,5 @@ export default function AuthOptions() {
         </Fragment>
     )
 }
+
+export default React.memo(AuthOptions)

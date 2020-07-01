@@ -11,7 +11,7 @@ const register = (props) => {
     const [ firstName, setFirstName ] = useState();
     const [ lastName, setLastName ] = useState();
 
-    // const { setUserData } = useContext(GlobalContext);
+    // const { setUser } = useContext(GlobalContext);
     const history = useHistory();
 
     const submit = async (e) => {
@@ -24,7 +24,7 @@ const register = (props) => {
             "/users/login", 
             { email, password }
         );
-        // setUserData({
+        // setUser({
         //     token: loginRes.data.token,
         //     user: loginRes.data.user,
         //     email: loginRes.data.email

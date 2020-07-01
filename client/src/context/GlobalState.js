@@ -10,8 +10,8 @@ const initialState = {
   transactions: [],
   error: null,
   loading: true,
-  userData: undefined,
-  isAuthenticated: false
+  user: undefined,
+  isAuthUser: false
 };
 
 // Create context
@@ -55,7 +55,7 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
-  async function logIn(userData) {
+  async function logIn(user) {
 
     const config = {
       headers: {
@@ -64,12 +64,16 @@ export const GlobalProvider = ({ children }) => {
     };
 
     try {
-      const res = await axios.post("/users/login", userData, config);
-      localStorage.setItem("auth-token", res.data.token);
+      console.log("[GlobalState] User Data >> ", user)
+      const res = await axios.post("/users/login", user, config);
       
+      localStorage.setItem("auth-token", res.data.token);
+      console.log("[GlobalState] result get uses >> ", res.data)
+      console.log("[GlobalState] isAuthUser >> ", isAuthUser)
+
       dispatch({
-        type: "LOGIN_REQUEST",
-        payload: res.data.data,
+        type: "LOGIN",
+        payload: res.data,
       });
       
     } catch (err) {
@@ -228,8 +232,8 @@ export const GlobalProvider = ({ children }) => {
         transactions: state.transactions,
         error: state.error,
         loading: state.loading,
-        userData: state.userData,
-        isAuthenticated: state.isAuthenticated,
+        user: state.user,
+        isAuthUser: state.isAuthUser,
         getCategories,
         addCategory,
         deleteCategory,

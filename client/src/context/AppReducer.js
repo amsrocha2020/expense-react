@@ -3,20 +3,21 @@ export default (state = [], action) => {
     case "CHECK_LOG":
       return {
         ...state,
-        userData: action.payload,
+        user: action.payload,
       };
-    case "LOGIN_REQUEST":
+    case "LOGIN":
+      console.log("[AppReducer] payload", action.payload )
       return {
         ...state,
-        isAuthenticated: true,
-        userData: action.payload,
+        isAuthUser: true,
+        user: action.payload.user,
       };
     case "LOGOUT":
       localStorage.clear();
       return {
         ...state,
-        isAuthenticated: false,
-        userData: action.payload,
+        isAuthUser: false,
+        user: action.payload.user,
       };
     case "GET_CATEGORIES":
       return {
