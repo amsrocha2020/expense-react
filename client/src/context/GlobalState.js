@@ -55,7 +55,7 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
-  async function logIn(user) {
+  async function logIn(user, isAuthUser) {
 
     const config = {
       headers: {
