@@ -8,7 +8,9 @@
           align-items: center;
   background: #22242a;
   color: #fff;
-  padding: 11px;
+  padding: 8px;
+  -webkit-box-shadow: 0 1px 0px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 21, 41, 0.62);
+          box-shadow: 0 1px 0px rgba(0, 0, 0, 0.03), 0 1px 8px rgba(0, 21, 41, 0.62);
 }
 
 .navbar button {
@@ -20,6 +22,30 @@
   cursor: pointer;
   outline: inherit;
   color: #fff;
+}
+
+.navbar i.fa.fa-user.fa-fw {
+  color: #fff;
+}
+
+.navbar .btn-primary:hover {
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.navbar .btn-primary:not(:disabled):not(.disabled).active, .navbar .btn-primary:not(:disabled):not(.disabled):active, .navbar .show > .btn-primary.dropdown-toggle,
+.navbar .btn-primary.focus, .navbar .btn-primary:focus {
+  background-color: transparent;
+  border-color: transparent !important;
+}
+
+.navbar .btn-primary:not(:disabled):not(.disabled).active:focus, .navbar .btn-primary:not(:disabled):not(.disabled):active:focus, .navbar .show > .btn-primary.dropdown-toggle:focus,
+.navbar .btn-primary.focus:focus, .navbar .btn-primary:focus:focus {
+  border-color: transparent !important;
+}
+
+.navbar .dropdown-menu.show {
+  top: 10px !important;
 }
 
 .navbar .sidebar-toggle {
@@ -39,7 +65,7 @@
 }
 
 .navbar .hamburger::before {
-  bottom: 35px;
+  bottom: 32px;
   height: 2px;
   width: 20px;
   position: absolute;
@@ -49,7 +75,7 @@
 }
 
 .navbar .hamburger::after {
-  bottom: 23.5px;
+  bottom: 20.5px;
   height: 2px;
   width: 20px;
   position: absolute;
@@ -144,7 +170,7 @@
 }
 
 .sidebar {
-  position: absolute;
+  position: fixed;
   min-width: 250px;
   max-width: 250px;
   height: 100vh;
@@ -153,19 +179,22 @@
   -webkit-box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.05);
           box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.05);
   z-index: 1;
-  -webkit-transition: top 1.5s ease, -webkit-transform 1.5s ease;
-  transition: top 1.5s ease, -webkit-transform 1.5s ease;
-  transition: transform 1.5s ease, top 1.5s ease;
-  transition: transform 1.5s ease, top 1.5s ease, -webkit-transform 1.5s ease;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
 }
 
 .sidebar.closed {
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
-  -webkit-transition: top 1s ease, -webkit-transform 1.5s ease;
-  transition: top 1s ease, -webkit-transform 1.5s ease;
-  transition: transform 1.5s ease, top 1s ease;
-  transition: transform 1.5s ease, top 1s ease, -webkit-transform 1.5s ease;
+  -webkit-transition: top 1.5s ease, -webkit-transform 1.5s ease;
+  transition: top 1.5s ease, -webkit-transform 1.5s ease;
+  transition: transform 1.5s ease, top 1.5s ease;
+  transition: transform 1.5s ease, top 1.5s ease, -webkit-transform 1.5s ease;
 }
 
 .sidebar .sidebar-content {
@@ -183,7 +212,7 @@
 
 .sidebar .sidebar-content .sidebar-brand,
 .sidebar .sidebar-content .sidebar-brand:hover {
-  padding: 15px;
+  padding: 11px;
   background: #22242a;
   font-size: 20px;
   font-weight: 500;
@@ -281,6 +310,12 @@
 .sidebar .sidebar-content .sidebar-nav .sidebar-link:hover,
 .sidebar .sidebar-content .sidebar-nav a.sidebar-link:hover {
   background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+
+.sidebar .sidebar-content .sidebar-nav .sidebar-link:hover .sidebar-text,
+.sidebar .sidebar-content .sidebar-nav a.sidebar-link:hover .sidebar-text {
+  color: #fff;
 }
 
 .sidebar .sidebar-content .sidebar-nav .sidebar-link i,
@@ -370,8 +405,12 @@ img.painel-control {
   color: #fff;
   word-wrap: normal;
   border: none;
+  -webkit-column-break-inside: avoid;
+  -o-column-break-inside: avoid;
+  -moz-column-break-inside: avoid;
+  break-inside: avoid;
   -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 5px 6px rgba(0, 0, 0, 0.42);
 }
 
 .card .card-body {
@@ -484,8 +523,6 @@ img.painel-control {
 body {
   margin: 0;
   font-family: "Lato", sans-serif;
-  font-size: 15px;
-  font-weight: 400;
   line-height: 1.5;
   color: #22242a;
   text-align: left;
@@ -509,8 +546,6 @@ body .wrapper .main {
   width: 100%;
   min-height: 100vh;
   min-width: 0;
-  -webkit-transition: margin-left 1s ease-in-out, left 1s ease-in-out;
-  transition: margin-left 1s ease-in-out, left 1s ease-in-out;
   background: #f4f7fa;
   margin-left: 250px;
 }
@@ -531,8 +566,7 @@ select {
   border: 1px solid #dedede;
   border-radius: 2px;
   display: block;
-  font-size: 16px;
-  padding: 10px;
+  padding: 5px;
   width: 100%;
 }
 

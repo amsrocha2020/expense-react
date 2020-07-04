@@ -6,8 +6,12 @@
     color: #fff;
     word-wrap: normal;
     border: none;
+    -webkit-column-break-inside: avoid;
+    -o-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    break-inside: avoid;
     -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03), 0 5px 6px rgba(0, 0, 0, 0.42);
     .card-body {
         float: left;
         padding: 20px;

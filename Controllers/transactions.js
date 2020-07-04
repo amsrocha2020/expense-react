@@ -21,6 +21,31 @@ exports.getTransactions = async (req, res, next) => {
     }
 }
 
+exports.getTransactionsById = async (req, res, next) => {
+    // res.send('GET transactions');
+    try {
+        const transactions = await Transaction.findById(req.params.id);
+
+        if(!Transaction) {
+            return res.status(404).json({
+                success: false,
+                error: 'No transaction found'
+            });
+        }
+        
+        return res.status(200).json({
+            success: true,
+            count: transactions.length,
+            data: transactions
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: 'Server Error'
+        });
+    }
+}
+
 // @desc Add all transactions
 // @route POST /api/v1/transactions
 // @access Public

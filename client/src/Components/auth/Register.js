@@ -11,25 +11,16 @@ const register = (props) => {
     const [ firstName, setFirstName ] = useState();
     const [ lastName, setLastName ] = useState();
 
-    // const { setUser } = useContext(GlobalContext);
+    const { logIn } = useContext(GlobalContext);
     const history = useHistory();
 
     const submit = async (e) => {
         e.preventDefault();
         const newUser = { firstName, lastName, email, password};
-        await axios.post(
-            "/users/register",
-            newUser);
-        const loginRes = await axios.post(
-            "/users/login", 
-            { email, password }
-        );
-        // setUser({
-        //     token: loginRes.data.token,
-        //     user: loginRes.data.user,
-        //     email: loginRes.data.email
-        // });
-        localStorage.setItem("auth-token", loginRes.data.token);
+        await axios.post("/users/register",newUser);
+        // const loginRes = await axios.post("/users/login", { email, password });
+        logIn(newUser)
+        // localStorage.setItem("auth-token", loginRes.data.token);
         history.push("/");
     }
 
@@ -39,7 +30,7 @@ const register = (props) => {
         <div className="wrap-login">
           <form onSubmit={submit} className="login-form" action="">
             <span className="login-form-title">REGISTER</span>
-            <span className="pb-1">First Name</span>
+            <span className="pb-1">FIRST NAME</span>
             <div
               className="wrap-input validate-input"
               data-validate="First Name is required"
@@ -53,7 +44,7 @@ const register = (props) => {
               />
               <span className="focus-input"></span>
             </div>
-            <span className="pb-1">Last Name</span>
+            <span className="pb-1">LAST NAME</span>
             <div
               className="wrap-input validate-input"
               data-validate="Last Name is required"
@@ -67,7 +58,7 @@ const register = (props) => {
               />
               <span className="focus-input"></span>
             </div>
-            <span className="pb-1">Email</span>
+            <span className="pb-1">EMAIL</span>
             <div
               className="wrap-input validate-input"
               data-validate="Email is required"
@@ -87,7 +78,7 @@ const register = (props) => {
               <span className="focus-input"></span>
             </div>
             <div className="container-login-form-btn">
-              <button className="login-form-btn">Sign Up</button>
+              <button className="login-form-btn">SIGN UP</button>
             </div>
           </form>
         </div>

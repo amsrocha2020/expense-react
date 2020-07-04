@@ -1,5 +1,5 @@
 .sidebar {
-    position: absolute;
+    position: fixed;
     min-width: 250px;
     max-width: 250px;
     height: 100vh;
@@ -7,11 +7,12 @@
     border-right: 0;
     box-shadow: 0 0 2rem 0 rgba(0, 0, 0, 0.05);
     z-index: 1;
-    transition: transform 1.5s ease, top 1.5s ease;
+    display: flex;
+    flex-direction: column;
     
     &.closed { 
         transform: translateX(-100%); 
-        transition: transform 1.5s ease, top 1s ease;
+        transition: transform 1.5s ease, top 1.5s ease;
     }
     
     .sidebar-content {
@@ -23,7 +24,7 @@
     
         .sidebar-brand, 
         .sidebar-brand:hover {
-            padding: 15px;
+            padding: 11px;
             background: $sidebar-brand-background;
             font-size: 20px;
             font-weight: 500;
@@ -103,6 +104,11 @@
                 
                 &:hover {
                     background-color: rgba(255,255,255,.2);
+                    color: #fff;
+
+                    .sidebar-text {
+                        color: #fff;
+                    }
                 }
                 
                 i {

@@ -1,0 +1,11 @@
+i.fa.fa-pencil,
+i.fa.fa-trash-o {
+    font-size: 15px;
+}
+
+.table-edit-btn,
+.table-delte-btn {
+    &:hover {
+        cursor: pointer;
+    }
+}

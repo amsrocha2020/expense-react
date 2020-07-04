@@ -5,6 +5,7 @@ import Dashboard from "./Pages/Dashboard/Dashboard";
 import Category from "./Pages/Category/Category";
 import TypeCategory from "./Pages/TypeCategory/TypeCategory";
 import Login from "./Components/auth/Login";
+import Register from "./Components/auth/Register";
 import User from "./Pages/Users/User";
 import PrivateRoute from "./PrivateRoute";
 
@@ -19,6 +20,7 @@ const App = () => {
       <BrowserRouter>
         <Switch>
           <Route path="/login" component={Login} />
+          <Route path="/register" component={Register} />
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute path="/user" component={User} />
           <PrivateRoute path="/categories" component={Category} />

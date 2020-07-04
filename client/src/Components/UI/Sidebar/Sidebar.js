@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-import { Link } from 'react-router-dom'
-
-import { Dropdown, ButtonGroup, DropdownButton } from "react-bootstrap";
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import * as Feather from "react-feather";
 import useShareableState from "../../../useShareableState/useShareableState";
 
-import { GlobalContext } from '../../../context/GlobalState';
+import { GlobalContext } from "../../../context/GlobalState";
 import { useBetween } from "use-between";
 
 const sidebar = (props) => {
@@ -13,7 +12,16 @@ const sidebar = (props) => {
 
   let { user } = useContext(GlobalContext);
 
-  // console.log("Sidebar -> ", user);
+  const [open, setOpen] = useState(false);
+
+  const toggle = (e) => {
+    setOpen(!open);
+    e.preventDefault();
+    e.stopPropagation();
+  };
+
+  const isExpanded = open ? "open" : "";
+  const ExpandIcon = open ? Feather.ChevronDown : Feather.ChevronRight;
 
   return (
     <nav className={`sidebar ${leftOpenSide}`}>
@@ -33,7 +41,10 @@ const sidebar = (props) => {
             className="img-fluid rounded-circle mb-2"
             alt="Miguel Rocha"
           />
-          <div className="sidebar-username"> {user ? (user.firstName + " " + user.lastName )  : 'No Name'} </div>
+          <div className="sidebar-username">
+            {" "}
+            {user ? user.firstName + " " + user.lastName : "No Name"}{" "}
+          </div>
         </div>
         <ul className="sidebar-nav">
           <li className="sidebar-header">Main Section</li>
@@ -57,33 +68,33 @@ const sidebar = (props) => {
           </li>
           <li className="sidebar-item">
             <Link className="sidebar-link" to="/typecategories">
-              <i className="fa fa-th-list" aria-hidden="true"></i>
+            <i class="fa fa-file-text-o" aria-hidden="true"></i>
               <span className="sidebar-text">Type Categories</span>
             </Link>
           </li>
 
           <li className="sidebar-header">Definitions</li>
-          <li className="sidebar-item">
-            <Link className="sidebar-link" to="#">
+          <li className={`sidebar-item ${isExpanded}`}>
+            <a
+              className="sidebar-link"
+              href="#!"
+              role="button"
+              onClick={toggle}
+            >
               <i className="fa fa-user" aria-hidden="true"></i>
-              {["right"].map((direction) => (
-                <DropdownButton
-                  as={ButtonGroup}
-                  key={direction}
-                  id={`dropdown-button-drop-${direction}`}
-                  drop={direction}
-                  variant="secondary"
-                  title="User"
-                >
-                  <Dropdown.Item eventKey="1"><a href="/user">Account</a></Dropdown.Item>
-                  <Dropdown.Item eventKey="2">Change Password</Dropdown.Item>
-                  <Dropdown.Divider />
-                  <Dropdown.Item eventKey="3">
-                    Terms and Conditions
-                  </Dropdown.Item>
-                </DropdownButton>
-              ))}
-            </Link>
+              <span className="sidebar-text">User</span>{" "}
+              <ExpandIcon className="menu-expand-icon" />
+            </a>
+            {open && (
+              <ul className="">
+                <li>
+                  <Link className="sidebar-link" to="/user"><i class="fa fa-address-card-o" aria-hidden="true"></i><span className="sidebar-text">Account</span></Link>
+                </li>
+                <li>
+                  <Link className="sidebar-link" to="/user"><i class="fa fa-key" aria-hidden="true"></i><span className="sidebar-text">Change Password</span></Link>
+                </li>
+              </ul>
+            )}
           </li>
         </ul>
       </div>

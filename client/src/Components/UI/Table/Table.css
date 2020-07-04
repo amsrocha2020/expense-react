@@ -1,0 +1,10 @@
+i.fa.fa-pencil,
+i.fa.fa-trash-o {
+  font-size: 15px;
+}
+
+.table-edit-btn:hover,
+.table-delte-btn:hover {
+  cursor: pointer;
+}
+/*# sourceMappingURL=Table.css.map */

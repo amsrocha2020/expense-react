@@ -1,66 +1,104 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react"
+import { Button, Spinner } from 'react-bootstrap'
 
-import moment from "moment";
-import { Table, Button } from "react-bootstrap";
+import moment from "moment"
+import { Table } from "react-bootstrap"
+import Modal from '../Modal/Modal'
+import Form from '../Forms/Forms'
 
-import { GlobalContext } from "../../../context/GlobalState";
+import "./Table.css"
+
+import { GlobalContext } from "../../../context/GlobalState"
 
 const TableContent = () => {
-  const { transactions, getTransactions, deleteTransaction } = useContext(
-    GlobalContext
-  );
+  const { transactions, getTransactions } = useContext(GlobalContext)
+  const { categories, getCategories } = useContext(GlobalContext)
+  const { loading, loadingFx } = useContext(GlobalContext)
+  const { deleteTransaction } = useContext(GlobalContext)
 
-  const deleteTrans = (id) => {
-    // console.log("Delete", id);
-    deleteTransaction(id);
-  };
+  const [modalShow, setModalShow] = useState(false)
+  const [transactionId, setTransactionId] = useState(1)
+
+  console.log("[Table] loading >> ", loading)
 
   useEffect(() => {
-    getTransactions();
-  }, []);
+      loadingFx()
+      getTransactions()
+      getCategories()
+  }, [])
 
   return (
-    <Table striped bordered hover className="table mt-2 mb-5">
-      <thead className="thead-dark">
-        <tr>
-          <th>Name</th>
-          <th>Date</th>
-          <th>State</th>
-          <th>Value</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        {transactions.map((transaction) => (
-          <tr key={transaction._id}>
-            <td>{transaction.type_category}</td>
-            <td>{moment(transaction.date).format("YYYY-MM-DD")}</td>
-            <td>
-              <span
-                className={
-                  transaction.state === "Pay"
-                    ? "badge badge-success"
-                    : "badge badge-danger"
-                }
-              >
-                {transaction.state}
-              </span>
-            </td>
-            <td>€ {transaction.amount}</td>
-            <td>
-              <Button className="mr-3">Edit</Button>
-              <Button
-                variant="danger"
-                onClick={() => deleteTrans(transaction._id)}
-              >
-                Delete
-              </Button>
-            </td>
+    <React.Fragment>
+      <Modal show={modalShow} 
+              onHide={() => setModalShow(false)}
+              titlemodal="Edit Transaction">
+              <Form transactionId={transactionId}/>
+      </Modal>
+      {false ? <div><Spinner className="mt-5" animation="border" /></div> : (
+        <Table striped bordered hover className="table mt-2 mb-5">
+        <thead className="thead-dark">
+          <tr>
+            <th>Category</th>
+            <th>Name</th>
+            <th>Date</th>
+            <th>State</th>
+            <th>Value</th>
+            <th></th>
           </tr>
-        ))}
-      </tbody>
-    </Table>
-  );
-};
+        </thead>
+        <tbody>
+          {transactions.map((transaction) => (
+            <tr key={transaction._id}>
+              <td>
+              { categories
+                .filter(category => category._id === transaction.category_id) 
+                .map(category => category.name)
+                }</td>
+              {/* <td>
+              {categories.map((category) => (
+                category._id === transaction.category_id ? category.name : '1'
+              ))} 
+              </td>*/}
+              <td>{transaction.type_category}</td>
+              <td>{moment(transaction.date).format("YYYY-MM-DD")}</td>
+              <td>
+                <span
+                  className={
+                    transaction.state === "Pay"
+                      ? "badge badge-success"
+                      : "badge badge-danger"
+                  }
+                >
+                  {transaction.state}
+                </span>
+              </td>
+              <td>€ {transaction.amount}</td>
+              <td>
+                <Button 
+                  className="table-edit-btn mr-3" 
+                  variant="success"
+                  onClick={() => {
+                    setTransactionId(transaction._id)
+                    setModalShow(true)
+                  }}>
+                    <i className="fa fa-pencil" aria-hidden="true"></i>
+                  </Button>
+                  <Button 
+                  className="table-delete-btn" 
+                  variant="danger"
+                  onClick={() => {
+                    deleteTransaction(transaction._id)
+                  }}>
+                    <i className="fa fa-trash-o" aria-hidden="true"></i>
+                  </Button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </Table>
+      )}
+    </React.Fragment>
+  )
+}
 
-export default TableContent;
+export default React.memo(TableContent);

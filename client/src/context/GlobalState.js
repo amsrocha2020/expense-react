@@ -1,4 +1,5 @@
 import React, { createContext, useReducer } from "react";
+import * as actionTypes from './actionTypes';
 import AppReducer from "./AppReducer";
 import axios from "axios";
 
@@ -9,9 +10,11 @@ const initialState = {
   typecategories: [],
   transactions: [],
   error: null,
-  loading: true,
+  loading: false,
   user: undefined,
-  isAuthUser: false
+  isAuthUser: false,
+  msgError: '',
+  modalTransaction: false
 };
 
 // Create context
@@ -22,6 +25,21 @@ export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
   
   // Actions
+  function loadingFx(loading) {
+    
+    dispatch({
+      type: actionTypes.LOADING,
+      payload: true,
+    });
+  }
+
+  function modalTrans(modalTransaction) {
+    dispatch({
+      type: actionTypes.MODAL_TRANSC,
+      payload: modalTransaction,
+    });
+  }
+
   async function checkLoggedIn() {  
     try {
       
@@ -41,7 +59,7 @@ export const GlobalProvider = ({ children }) => {
         });
         
         dispatch({
-          type: "CHECK_LOG",
+          type: actionTypes.CHECK_LOG,
           payload: userRes.data,
         });
         
@@ -49,13 +67,13 @@ export const GlobalProvider = ({ children }) => {
       
     } catch (err) {
       dispatch({
-        type: "CHECK_LOG_ERROR",
+        type: actionTypes.CHECK_LOG_ERROR,
         payload: err.response.data.error,
       });
     }
   }
 
-  async function logIn(user, isAuthUser) {
+  async function logIn(user, loading) {
 
     const config = {
       headers: {
@@ -69,15 +87,19 @@ export const GlobalProvider = ({ children }) => {
       
       localStorage.setItem("auth-token", res.data.token);
       console.log("[GlobalState] result get uses >> ", res.data)
-      console.log("[GlobalState] isAuthUser >> ", isAuthUser)
+      console.log("[GlobalState] isAuthUser >> ", state.isAuthUser)
 
       dispatch({
-        type: "LOGIN",
+        type: actionTypes.LOGIN,
         payload: res.data,
       });
       
     } catch (err) {
-      
+      console.log("[GlobalState] LOGIN ERROR", err.response.data)
+      dispatch({
+        type: actionTypes.LOGIN_ERROR,
+        payload: err.response.data,
+      });
     }
   }
 
@@ -86,12 +108,29 @@ export const GlobalProvider = ({ children }) => {
       const res = await axios.get("/categories");
 
       dispatch({
-        type: "GET_CATEGORIES",
+        type: actionTypes.GET_CATEGORIES,
         payload: res.data.data,
       });
     } catch (err) {
       dispatch({
-        type: "CATEGORY_ERROR",
+        type: actionTypes.CATEGORY_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  }
+
+  async function getCategoriesById(id) {
+    try {
+      state.loading = true
+      const res = await axios.get(`/categories/${id}`)
+      console.log("[GlobalState] res.Categorie >> ", res)
+      dispatch({
+        type: actionTypes.GET_CATEGORIES,
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: actionTypes.CATEGORY_ERROR,
         payload: err.response.data.error,
       });
     }
@@ -108,12 +147,12 @@ export const GlobalProvider = ({ children }) => {
       const res = await axios.post("/categories", categories, config);
 
       dispatch({
-        type: "ADD_CATEGORY",
+        type: actionTypes.ADD_CATEGORY,
         payload: res.data.data,
       });
     } catch (err) {
       dispatch({
-        type: "CATEGORY_ERROR",
+        type: actionTypes.CATEGORY_ERROR,
         payload: err.response.data.error,
       });
     }
@@ -124,12 +163,12 @@ export const GlobalProvider = ({ children }) => {
       await axios.delete(`/categories/${id}`);
 
       dispatch({
-        type: "DELETE_CATEGORY",
+        type: actionTypes.DELETE_CATEGORY,
         payload: id,
       });
     } catch (err) {
       dispatch({
-        type: "CATEGORY_ERROR",
+        type: actionTypes.CATEGORY_ERROR,
         payload: err.response.data.error,
       });
     }
@@ -137,15 +176,31 @@ export const GlobalProvider = ({ children }) => {
 
   async function getTransactions() {
     try {
+      state.loading = true;
       const res = await axios.get("/dashboard");
 
       dispatch({
-        type: "GET_TRANSACTIONS",
+        type: actionTypes.GET_TRANSACTIONS,
         payload: res.data.data,
       });
     } catch (err) {
       dispatch({
-        type: "TRANSACTIONS_ERROR",
+        type: actionTypes.TRANSACTIONS_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  }
+
+  async function getTransactionsById(id) {
+    try {
+      const res = await axios.get(`/dashboard/${id}`);
+      dispatch({
+        type: actionTypes.GET_TRANSACTIONS,
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: actionTypes.TRANSACTIONS_ERROR,
         payload: err.response.data.error,
       });
     }
@@ -162,12 +217,12 @@ export const GlobalProvider = ({ children }) => {
       const res = await axios.post("/dashboard", transactions, config);
 
       dispatch({
-        type: "ADD_TRANSACTION",
+        type: actionTypes.ADD_TRANSACTION,
         payload: res.data.data,
       });
     } catch (err) {
       dispatch({
-        type: "TRANSACTION_ERROR",
+        type: actionTypes.TRANSACTIONS_ERROR,
         payload: err.response.data.error,
       });
     }
@@ -175,16 +230,16 @@ export const GlobalProvider = ({ children }) => {
 
   async function deleteTransaction(id) {
     try {
-      console.log(id);
+      console.log("[GlobalState DeleteTransaction] loading", state.loading);
       await axios.delete(`/dashboard/${id}`);
 
       dispatch({
-        type: "DELETE_TRANSACTION",
+        type: actionTypes.DELETE_TRANSACTION,
         payload: id,
       });
     } catch (err) {
       dispatch({
-        type: "TRANSACTIONS_ERROR",
+        type: actionTypes.TRANSACTIONS_ERROR,
         payload: err.response.data.error,
       });
     }
@@ -195,12 +250,12 @@ export const GlobalProvider = ({ children }) => {
       const res = await axios.get("/typecategories");
 
       dispatch({
-        type: "GET_TYPECATEGORIES",
+        type: actionTypes.GET_TYPECATEGORIES,
         payload: res.data.data,
       });
     } catch (err) {
       dispatch({
-        type: "TYPECATEGORIES_ERROR",
+        type: actionTypes.TYPECATEGORIES_ERROR,
         payload: err.response.data.error,
       });
     }
@@ -212,12 +267,12 @@ export const GlobalProvider = ({ children }) => {
       await axios.delete(`/typecategories/${id}`);
 
       dispatch({
-        type: "DELETE_TYPECATEGORY",
+        type: actionTypes.DELETE_TYPECATEGORY,
         payload: id,
       });
     } catch (err) {
       dispatch({
-        type: "TYPECATEGORY_ERROR",
+        type: actionTypes.TYPECATEGORIES_ERROR,
         payload: err.response.data.error,
       });
     }
@@ -234,16 +289,22 @@ export const GlobalProvider = ({ children }) => {
         loading: state.loading,
         user: state.user,
         isAuthUser: state.isAuthUser,
+        msgError: state.msgError,
+        modalTransaction: state.modalTransaction,
         getCategories,
+        getCategoriesById,
         addCategory,
         deleteCategory,
         getTransactions,
+        getTransactionsById,
         addTransactions,
         deleteTransaction,
         getTypeCategories,
         deleteTypeCategories,
         checkLoggedIn,
-        logIn
+        logIn,
+        modalTrans,
+        loadingFx
       }}
     >
       {children}

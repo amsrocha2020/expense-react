@@ -1,30 +1,29 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "./context/GlobalState";
-import { Redirect, Route } from "react-router-dom";
-import { useBetween } from "use-between";
+import React, { useContext } from "react"
+import { GlobalContext } from "./context/GlobalState"
+import { Redirect, Route } from "react-router-dom"
+import { useBetween } from "use-between"
 
-import useShareableState from "./useShareableState/useShareableState";
+import useShareableState from "./useShareableState/useShareableState"
 
-import Sidebar from "./Components/UI/Sidebar/Sidebar";
-import Nav from "./Components/UI/Nav/Nav";
+import Sidebar from "./Components/UI/Sidebar/Sidebar"
+import Nav from "./Components/UI/Nav/Nav"
+import Footer from "./Components/UI/Footer/Footer"
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let { isAuthUser } = useContext(GlobalContext);
-  // let { user } = useContext(GlobalContext);
 
-  console.log("[PrivateRoute] isAuthUser >> ", isAuthUser);
+  console.log("[PrivateRoute] isAuthUser >> ", isAuthUser)
 
-  // let userLog = (user != undefined) ? true : false
-
-  const { leftOpen } = useBetween(useShareableState);
-  let leftOpenSide = leftOpen ? "open" : "closed";
+  const { leftOpen } = useBetween(useShareableState)
+  let leftOpenSide = leftOpen ? "open" : "closed"
 
   return (
     <Route
       {...rest}
       render={(props) =>
-        isAuthUser ? (
-          // userLog ? (
+        // isAuthUser ? (
+        true ? (
+          <React.Fragment>
           <div className="wrapper">
             <Sidebar />
             <div className={`main ${leftOpenSide}`}>
@@ -34,6 +33,8 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
               </div>
             </div>
           </div>
+        <Footer />
+        </React.Fragment>
         ) : (
           <Redirect
             to={{ pathname: "/login", state: { from: props.location } }}
@@ -44,4 +45,4 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export default React.memo(PrivateRoute);
+export default React.memo(PrivateRoute)

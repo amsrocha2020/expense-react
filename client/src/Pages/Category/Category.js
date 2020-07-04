@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { GlobalContext } from "../../context/GlobalState";
 
 const Categories = () => {
-  const [text, setText] = useState('');
+  const [ text, setText ] = useState('');
   const { categories, getCategories } = useContext(GlobalContext);
   const { addCategory, deleteCategory } = useContext(GlobalContext);
 
