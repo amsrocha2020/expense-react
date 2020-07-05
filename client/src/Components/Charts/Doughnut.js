@@ -8,8 +8,11 @@ const charts = (props) => {
 
     const options = {
         animationEnabled: true,
+        backgroundColor: "transparent",
         title: {
-            text: "Anual Balance"
+            text: "Anual Balance",
+            fontFamily: "Lato, sans-serif",
+            fontSize: 20,
         },
         subtitles: [{
             text: "71% Positive",

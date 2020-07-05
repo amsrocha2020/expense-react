@@ -1,7 +1,7 @@
 .sidebar {
     position: fixed;
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 185px;
+    max-width: 185px;
     height: 100vh;
     background: transparent;
     border-right: 0;
@@ -13,6 +13,17 @@
     &.closed { 
         transform: translateX(-100%); 
         transition: transform 1.5s ease, top 1.5s ease;
+    }
+
+    .sidebar-item {
+        ul {
+            padding: 0;
+        }
+    }
+
+    .sidebar-expandIcon {
+        color: #fff;
+        float: right;
     }
     
     .sidebar-content {
@@ -165,8 +176,8 @@
 }
 
 img.painel-control {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
 }
 
 .svg-inline--fa {

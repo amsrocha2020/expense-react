@@ -17,6 +17,8 @@ const Forms = ({ transactionId }) => {
   } = useContext(GlobalContext);
   const { modalTrans } = useContext(GlobalContext);
 
+  let type = [];
+
   const [startDate, setStartDate] = useState(new Date());
   const [catId, setCat] = useState("");
   const [typeCat, setTypeCat] = useState("");
@@ -50,6 +52,20 @@ const Forms = ({ transactionId }) => {
     
   }, []);
 
+  const handleChange = (e) => {
+    setCat(e.target.value)
+    
+   const types = typecategories
+    .filter((typecategory) => typecategory.category_id === e.target.value)
+    .map(typecategory => 
+        typecategory._id
+       )
+    
+       console.log("[Forms] >>", types)
+  }
+      
+      
+
   return (
     <form
       className="form-transactions"
@@ -63,7 +79,7 @@ const Forms = ({ transactionId }) => {
             <Form.Control
               as="select"
               value={catId}
-              onChange={(e) => setCat(e.target.value)}
+              onChange={handleChange }
               custom
             >
               <option>Select Category</option>
@@ -92,6 +108,7 @@ const Forms = ({ transactionId }) => {
                   {category.name}
                 </option>
               ))}
+              {/* {type.map((value) => value.name )} */}
             </Form.Control>
           </Form.Group>
         </div>

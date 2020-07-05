@@ -83,7 +83,7 @@ const sidebar = (props) => {
             >
               <i className="fa fa-user" aria-hidden="true"></i>
               <span className="sidebar-text">User</span>{" "}
-              <ExpandIcon className="menu-expand-icon" />
+              <span className="sidebar-expandIcon"><ExpandIcon className="menu-expand-icon" /></span>
             </a>
             {open && (
               <ul className="">

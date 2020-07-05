@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Button, Spinner } from 'react-bootstrap'
+import { Pagination,Button, Spinner } from 'react-bootstrap'
 
 import moment from "moment"
 import { Table } from "react-bootstrap"
@@ -35,11 +35,12 @@ const TableContent = () => {
               <Form transactionId={transactionId}/>
       </Modal>
       {false ? <div><Spinner className="mt-5" animation="border" /></div> : (
+        <div>
         <Table striped bordered hover className="table mt-2 mb-5">
         <thead className="thead-dark">
           <tr>
             <th>Category</th>
-            <th>Name</th>
+            <th>Type Category</th>
             <th>Date</th>
             <th>State</th>
             <th>Value</th>
@@ -54,11 +55,6 @@ const TableContent = () => {
                 .filter(category => category._id === transaction.category_id) 
                 .map(category => category.name)
                 }</td>
-              {/* <td>
-              {categories.map((category) => (
-                category._id === transaction.category_id ? category.name : '1'
-              ))} 
-              </td>*/}
               <td>{transaction.type_category}</td>
               <td>{moment(transaction.date).format("YYYY-MM-DD")}</td>
               <td>
@@ -96,6 +92,24 @@ const TableContent = () => {
           ))}
         </tbody>
       </Table>
+         {/* <Pagination>
+          <Pagination.First />
+          <Pagination.Prev />
+          <Pagination.Item>{1}</Pagination.Item>
+          <Pagination.Ellipsis />
+        
+          <Pagination.Item>{10}</Pagination.Item>
+          <Pagination.Item>{11}</Pagination.Item>
+          <Pagination.Item active>{12}</Pagination.Item>
+          <Pagination.Item>{13}</Pagination.Item>
+          <Pagination.Item disabled>{14}</Pagination.Item>
+        
+          <Pagination.Ellipsis />
+          <Pagination.Item>{20}</Pagination.Item>
+          <Pagination.Next />
+          <Pagination.Last />
+        </Pagination> */}
+        </div>
       )}
     </React.Fragment>
   )

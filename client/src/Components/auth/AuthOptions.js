@@ -25,7 +25,8 @@ function AuthOptions() {
 
     return(
         <Fragment>
-            {isAuthUser ? (
+            {/* {isAuthUser ? ( */}
+            {true ? (
                 <button onClick={logout}>Logout</button>
                 ) : (
                     <div>

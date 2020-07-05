@@ -14,8 +14,7 @@ const User = (props) => {
           />
         </div>
         <div>
-          <h2 className="h4">Jason Smith</h2>
-          <div className="h5 text-muted">Creative Director</div>
+          <h2 className="h4">Miguel Rocha</h2>
           <hr />
           <Form>
             <Form.Row>

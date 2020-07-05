@@ -179,9 +179,17 @@ export const GlobalProvider = ({ children }) => {
       state.loading = true;
       const res = await axios.get("/dashboard");
 
+      console.log("[GlobalState] res >> ", res)
+
+      const result = res.data.data.sort((a, b) => new Date(a.date) - new Date(b.date))
+
+      
+
+      console.log("[GlobalState] res 2 >> ", result)
+
       dispatch({
         type: actionTypes.GET_TRANSACTIONS,
-        payload: res.data.data,
+        payload: result,
       });
     } catch (err) {
       dispatch({

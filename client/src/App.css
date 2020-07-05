@@ -171,8 +171,8 @@
 
 .sidebar {
   position: fixed;
-  min-width: 250px;
-  max-width: 250px;
+  min-width: 185px;
+  max-width: 185px;
   height: 100vh;
   background: transparent;
   border-right: 0;
@@ -195,6 +195,15 @@
   transition: top 1.5s ease, -webkit-transform 1.5s ease;
   transition: transform 1.5s ease, top 1.5s ease;
   transition: transform 1.5s ease, top 1.5s ease, -webkit-transform 1.5s ease;
+}
+
+.sidebar .sidebar-item ul {
+  padding: 0;
+}
+
+.sidebar .sidebar-expandIcon {
+  color: #fff;
+  float: right;
 }
 
 .sidebar .sidebar-content {
@@ -372,8 +381,8 @@
 }
 
 img.painel-control {
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
 }
 
 .svg-inline--fa {
@@ -528,6 +537,10 @@ body {
   text-align: left;
 }
 
+body .fa {
+  font-size: 20px;
+}
+
 body .wrapper {
   -webkit-box-align: stretch;
       -ms-flex-align: stretch;
@@ -538,7 +551,6 @@ body .wrapper {
   overflow: hidden;
   width: 100%;
   position: relative;
-  height: 100vh;
   min-height: 100vh;
 }
 
@@ -547,7 +559,7 @@ body .wrapper .main {
   min-height: 100vh;
   min-width: 0;
   background: #f4f7fa;
-  margin-left: 250px;
+  margin-left: 185px;
 }
 
 body .wrapper .main.closed {
