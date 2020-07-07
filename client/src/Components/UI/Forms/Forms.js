@@ -1,30 +1,24 @@
 import React, { useContext, useEffect, useState } from "react"
 import { Button, Form } from "react-bootstrap"
-import DatePicker from "react-datepicker"
 
+import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css"
 
 import { GlobalContext } from "../../../context/GlobalState";
 
 const Forms = ({ transactionId }) => {
-  const {
-    categories,
-    getCategories,
-    typecategories,
-    getTypeCategories,
-    addTransactions,
-    getTransactionsById
-  } = useContext(GlobalContext);
+  const { addTransactions } = useContext(GlobalContext);
+  const { typecategories, getTypeCategories } = useContext(GlobalContext);
+  const { categories,getCategories } = useContext(GlobalContext);
   const { modalTrans } = useContext(GlobalContext);
 
-  let type = [];
+  const [ selectState, setSelectState ] = useState("");
+  const [ startDate, setStartDate ] = useState(new Date());
+  const [ typeCat, setTypeCat ] = useState("");
+  const [ amount, setAmount ] = useState("");
+  const [ catId, setCat ] = useState("");
 
-  const [startDate, setStartDate] = useState(new Date());
-  const [catId, setCat] = useState("");
-  const [typeCat, setTypeCat] = useState("");
-  const [selectState, setSelectState] = useState("");
-  const [amount, setAmount] = useState("");
-  const [loading] = useState(false);
+  let [ types, setTypes ] = useState(typecategories);
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -37,34 +31,22 @@ const Forms = ({ transactionId }) => {
       state: selectState,
       amount: amount,
     };
-
     addTransactions(newTransaction);
   };
-
-  useEffect(() => {
-    console.log("[Forms] transactionId >> ", transactionId)
-     if(transactionId){
-      getTransactionsById(transactionId)
-     } else {
-      getCategories()
-      getTypeCategories()
-     }
-    
-  }, []);
 
   const handleChange = (e) => {
     setCat(e.target.value)
     
-   const types = typecategories
-    .filter((typecategory) => typecategory.category_id === e.target.value)
-    .map(typecategory => 
-        typecategory._id
-       )
+    types = typecategories
+      .filter((typecategory) => typecategory.category_id === e.target.value)
     
-       console.log("[Forms] >>", types)
+    setTypes(types);
   }
-      
-      
+
+  useEffect(() => {  
+      getCategories()
+      getTypeCategories()
+  }, []);
 
   return (
     <form
@@ -79,7 +61,7 @@ const Forms = ({ transactionId }) => {
             <Form.Control
               as="select"
               value={catId}
-              onChange={handleChange }
+              onChange={handleChange}
               custom
             >
               <option>Select Category</option>
@@ -98,17 +80,15 @@ const Forms = ({ transactionId }) => {
               as="select"
               value={typeCat}
               onChange={(e) => setTypeCat(e.target.value)}
-              disabled={loading}
               custom
             >
               <option>Select Type Category</option>
-              {typecategories.map((category) => (
+              {types.map((category) => (
                 <option key={category._id} value={category.name}>
                   {" "}
                   {category.name}
                 </option>
               ))}
-              {/* {type.map((value) => value.name )} */}
             </Form.Control>
           </Form.Group>
         </div>

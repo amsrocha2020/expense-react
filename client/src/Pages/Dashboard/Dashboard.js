@@ -1,34 +1,35 @@
-import React, { useContext, useState } from "react";
-import { FormControl, InputGroup, Button } from "react-bootstrap";
-import DatePicker from "react-datepicker";
+import React, { useContext, useState, useEffect } from "react"
+import { FormControl, InputGroup, Button } from "react-bootstrap"
+import DatePicker from "react-datepicker"
 
-import moment from "moment";
+import moment from "moment"
 
-import Cards from "../../Components/Cards/Cards";
-import Modal from "../../Components/UI/Modal/Modal";
-import Forms from "../../Components/UI/Forms/Forms";
-import Table from "../../Components/UI/Table/Table";
-import Doughnut from "../../Components/Charts/Doughnut";
-import Crosshair from "../../Components/Charts/Crosshair";
+import Cards from "../../Components/Cards/Cards"
+import Modal from "../../Components/UI/Modal/Modal"
+import Forms from "../../Components/UI/Forms/Forms"
+import Table from "../../Components/UI/Table/Table"
+import Doughnut from "../../Components/Charts/Doughnut"
+import Crosshair from "../../Components/Charts/Crosshair"
 
-import { GlobalContext } from "../../context/GlobalState";
+import { GlobalContext } from "../../context/GlobalState"
 
-import "./Dashboard.css";
+import "./Dashboard.css"
 
 const Dashboard = (props) => {
-  const { transactions, categories } = useContext(GlobalContext);
-  const { modalTransaction, modalTrans } = useContext(GlobalContext);
+  const { transactions, getTransactions } = useContext(GlobalContext)
+  const { modalTransaction, modalTrans } = useContext(GlobalContext)
 
-  const [startDate, setStartDate] = useState(new Date("2020/02/08"));
-  const [endDate, setEndDate] = useState(new Date("2020/02/10"));
+  const [startDate, setStartDate] = useState(new Date().setDate( new Date().getDate() - 30 ))
+  const [endDate, setEndDate] = useState(new Date())
+  const [search, setSearch] = React.useState("")
 
-  const amounts = transactions.map((transaction) => transaction.amount);
-  const total = amounts.reduce((acc, item) => (acc += item), 0);
+  const amounts = transactions.map((transaction) => transaction.amount)
+  const total = amounts.reduce((acc, item) => (acc += item), 0)
 
   const balancoAnual = () => {
-    let totalAnual = 1200 + total;
-    let percGanhos = (1200 / totalAnual) * 100;
-    let percDespesas = (total / totalAnual) * 100;
+    let totalAnual = 1200 + total
+    let percGanhos = (1200 / totalAnual) * 100
+    let percDespesas = (total / totalAnual) * 100
 
     return [
       { name: "Earnings", y: percGanhos },
@@ -36,16 +37,25 @@ const Dashboard = (props) => {
     ];
   };
 
+  const onChangeSearch = (e) => {
+    let val = e.target.value
+    setSearch(val.toLowerCase())
+  }
+
   const expensesM = () => {
     const trans = transactions.map((transaction) => {
       return {
         x: new Date(moment(transaction.date).format("YYYY-MM-DD")),
         y: transaction.amount,
-      };
-    });
+      }
+    })
+
+    useEffect(() => {
+      getTransactions()
+    }, [])
 
     return trans
-  };
+  }
 
   return (
     <div className="dashboard">
@@ -55,7 +65,7 @@ const Dashboard = (props) => {
           cardClass="earn"
           cardDescription="Balance"
           cardDescriptionsub="Earnings"
-          money="1200 "
+          money="1000 "
         />
         <Cards
           cardClass="costs"
@@ -67,11 +77,11 @@ const Dashboard = (props) => {
           cardClass="savings"
           cardDescription="Savings"
           cardDescriptionsub="Save"
-          money={1200 - total}
+          money={1000 - total}
         />
       </div>
       <div className="transactions">
-        <div class="row">
+        <div className="row">
           <div className="col-2">
             <Button
               className="mr-3"
@@ -81,7 +91,7 @@ const Dashboard = (props) => {
               Add Transaction
             </Button>
           </div>
-          <div class="col">
+          <div className="col">
             <div className="rage-dates">
               <div className="row">
                 <div className="mr-4">
@@ -104,10 +114,10 @@ const Dashboard = (props) => {
                     className="mr-2"
                   />
                 </div>
-                  <InputGroup className="mb-3 input-search">
+                <InputGroup className="mb-3 input-search" value={search} onChange={onChangeSearch}>
                     <InputGroup.Prepend>
-                      <InputGroup.Text id="basic-addon1">
-                        <i class="fa fa-search" aria-hidden="true"></i>
+                      <InputGroup.Text id="search-input"  >
+                        <i className="fa fa-search" aria-hidden="true"></i>
                       </InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
@@ -120,7 +130,7 @@ const Dashboard = (props) => {
             </div>
           </div>
         </div>
-        <Table />
+        <Table searchStartDate={startDate} searchEndDate={endDate} searchInput={search}/>
         <div>
           <div className="row">
             <div className="col-6">
@@ -143,4 +153,4 @@ const Dashboard = (props) => {
   );
 };
 
-export default Dashboard;
+export default Dashboard

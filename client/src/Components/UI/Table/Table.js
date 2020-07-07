@@ -1,26 +1,44 @@
-import React, { useContext, useEffect, useState } from "react"
-import { Pagination,Button, Spinner } from 'react-bootstrap'
+import React, { useContext, useEffect, useState } from 'react'
+import { Button, Spinner, Table } from 'react-bootstrap'
 
-import moment from "moment"
-import { Table } from "react-bootstrap"
+import moment from 'moment'
 import Modal from '../Modal/Modal'
 import Form from '../Forms/Forms'
+import Pagination from '../../Pagination/Pagination'
 
 import "./Table.css"
 
 import { GlobalContext } from "../../../context/GlobalState"
 
-const TableContent = () => {
+const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
   const { transactions, getTransactions } = useContext(GlobalContext)
   const { categories, getCategories } = useContext(GlobalContext)
   const { loading, loadingFx } = useContext(GlobalContext)
   const { deleteTransaction } = useContext(GlobalContext)
-
+  
   const [modalShow, setModalShow] = useState(false)
-  const [transactionId, setTransactionId] = useState(1)
+  const [currentPage, setCurrentPage] = useState(1)
+  const [contentPerPage, setcontentPerPage] = useState(5)
+  
+  // Get current lines table - Pagination
+  const indexOfLastRow = currentPage * contentPerPage
+  const indexOfFirstRow = indexOfLastRow - contentPerPage
+  
+  // Search by date
+  let filterByDate = transactions.filter(item => {
+    let date = new Date(item.date);
+    return date >= searchStartDate && date <= searchEndDate;
+ })
 
-  console.log("[Table] loading >> ", loading)
+  // Search
+  let currentRowFilter = filterByDate.filter(transaction => transaction.type_category.toLowerCase().includes(searchInput));
+  let currentRow = currentRowFilter.slice(indexOfFirstRow, indexOfLastRow)
 
+  // setTransaction(prevTransactions => [...prevTransactions, currentRow])
+
+  // Change page
+  const paginate = pageNumber => setCurrentPage(pageNumber)
+  
   useEffect(() => {
       loadingFx()
       getTransactions()
@@ -32,11 +50,11 @@ const TableContent = () => {
       <Modal show={modalShow} 
               onHide={() => setModalShow(false)}
               titlemodal="Edit Transaction">
-              <Form transactionId={transactionId}/>
+              <Form />
       </Modal>
       {false ? <div><Spinner className="mt-5" animation="border" /></div> : (
         <div>
-        <Table striped bordered hover className="table mt-2 mb-5">
+        <Table striped bordered hover className="table mt-2">
         <thead className="thead-dark">
           <tr>
             <th>Category</th>
@@ -48,7 +66,7 @@ const TableContent = () => {
           </tr>
         </thead>
         <tbody>
-          {transactions.map((transaction) => (
+          {currentRow.map((transaction) => (
             <tr key={transaction._id}>
               <td>
               { categories
@@ -74,7 +92,7 @@ const TableContent = () => {
                   className="table-edit-btn mr-3" 
                   variant="success"
                   onClick={() => {
-                    setTransactionId(transaction._id)
+                    // setTransactionId(transaction._id)
                     setModalShow(true)
                   }}>
                     <i className="fa fa-pencil" aria-hidden="true"></i>
@@ -91,24 +109,8 @@ const TableContent = () => {
             </tr>
           ))}
         </tbody>
-      </Table>
-         {/* <Pagination>
-          <Pagination.First />
-          <Pagination.Prev />
-          <Pagination.Item>{1}</Pagination.Item>
-          <Pagination.Ellipsis />
-        
-          <Pagination.Item>{10}</Pagination.Item>
-          <Pagination.Item>{11}</Pagination.Item>
-          <Pagination.Item active>{12}</Pagination.Item>
-          <Pagination.Item>{13}</Pagination.Item>
-          <Pagination.Item disabled>{14}</Pagination.Item>
-        
-          <Pagination.Ellipsis />
-          <Pagination.Item>{20}</Pagination.Item>
-          <Pagination.Next />
-          <Pagination.Last />
-        </Pagination> */}
+      </Table> 
+      <Pagination contentPerPage={contentPerPage} totalRows={currentRowFilter.length} paginate={paginate}/>
         </div>
       )}
     </React.Fragment>

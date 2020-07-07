@@ -68,7 +68,7 @@ const sidebar = (props) => {
           </li>
           <li className="sidebar-item">
             <Link className="sidebar-link" to="/typecategories">
-            <i class="fa fa-file-text-o" aria-hidden="true"></i>
+            <i className="fa fa-file-text-o" aria-hidden="true"></i>
               <span className="sidebar-text">Type Categories</span>
             </Link>
           </li>
@@ -88,10 +88,10 @@ const sidebar = (props) => {
             {open && (
               <ul className="">
                 <li>
-                  <Link className="sidebar-link" to="/user"><i class="fa fa-address-card-o" aria-hidden="true"></i><span className="sidebar-text">Account</span></Link>
+                  <Link className="sidebar-link" to="/user"><i className="fa fa-address-card-o" aria-hidden="true"></i><span className="sidebar-text">Account</span></Link>
                 </li>
                 <li>
-                  <Link className="sidebar-link" to="/user"><i class="fa fa-key" aria-hidden="true"></i><span className="sidebar-text">Change Password</span></Link>
+                  <Link className="sidebar-link" to="/user"><i className="fa fa-key" aria-hidden="true"></i><span className="sidebar-text">Change Password</span></Link>
                 </li>
               </ul>
             )}
