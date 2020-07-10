@@ -3,8 +3,8 @@ import { useHistory } from "react-router-dom";
 import { GlobalContext } from '../../context/GlobalState';
 
 function AuthOptions() {
-    const { checkLoggedIn } = useContext(GlobalContext)
-    let { user, isAuthUser } = useContext(GlobalContext)
+    const { checkLoggedIn } = useContext(GlobalContext);
+    let { user, isAuthUser } = useContext(GlobalContext);
 
     let history = useHistory()
 
@@ -14,7 +14,7 @@ function AuthOptions() {
         isAuthUser = false
         user = {}
         console.log("[AuthOptions] isAuthUser >> ", isAuthUser)
-        console.log("[AuthOptions] User Data -> ", user)
+        console.log("[AuthOptions] User Data >> ", user)
         localStorage.setItem("auth-token", "")
         history.push("/login")
     };

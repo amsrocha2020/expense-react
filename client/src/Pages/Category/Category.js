@@ -30,12 +30,7 @@ const Categories = () => {
         <Form.Row>
           <Col sm={4}>
             <Form.Group controlId="category">
-              <Form.Control
-                type="text"
-                placeholder="Categories"
-                value={text}
-                onChange={(e) => setText(e.target.value)}
-              />
+              <Form.Control type="text" placeholder="Categories" value={text} onChange={(e) => setText(e.target.value)} />
             </Form.Group>
           </Col>
           <Col sm={4}>
@@ -50,9 +45,7 @@ const Categories = () => {
             </Form.Group>
           </Col>
           <Col sm={4}>
-          <Button type="submit" className="add earn btn-categories">
-            Add Categories
-          </Button>
+          <Button type="submit" className="add earn btn-categories">Add Categories</Button>
           </Col>
         </Form.Row>
       </Form>
@@ -60,11 +53,8 @@ const Categories = () => {
         {Object.keys(categories).length > 0
           ? categories.map((category) => (
               <li className="mb-3" key={category._id}>
-                <Button
-                  key={category.id}
-                  className="table-delete-btn"
-                  variant="danger"
-                  onClick={() => deleteCategory(category._id)}
+                <Button key={category.id} className="table-delete-btn" variant="danger" 
+                onClick={() => deleteCategory(category._id)}
                 >
                   <i className="fa fa-trash-o" aria-hidden="true"></i>
                 </Button>

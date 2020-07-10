@@ -1,21 +1,16 @@
-import React, { useContext } from "react"
-import { GlobalContext } from "./context/GlobalState"
-import { Redirect, Route } from "react-router-dom"
-import { useBetween } from "use-between"
-
-import useShareableState from "./useShareableState/useShareableState"
-
-import Sidebar from "./Components/UI/Sidebar/Sidebar"
-import Nav from "./Components/UI/Nav/Nav"
-import Footer from "./Components/UI/Footer/Footer"
+import React, { useContext } from "react";
+import { GlobalContext } from "./context/GlobalState";
+import { Redirect, Route } from "react-router-dom";
+import { useBetween } from "use-between";
+import useShareableState from "./useShareableState/useShareableState";
+import Sidebar from "./Components/UI/Sidebar/Sidebar";
+import Nav from "./Components/UI/Nav/Nav";
+import Footer from "./Components/UI/Footer/Footer";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
+  const { leftOpen } = useBetween(useShareableState);
   let { isAuthUser } = useContext(GlobalContext);
-
-  console.log("[PrivateRoute] isAuthUser >> ", isAuthUser)
-
-  const { leftOpen } = useBetween(useShareableState)
-  let leftOpenSide = leftOpen ? "open" : "closed"
+  let leftOpenSide = leftOpen ? "open" : "closed";
 
   return (
     <Route
@@ -36,9 +31,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         <Footer />
         </React.Fragment>
         ) : (
-          <Redirect
-            to={{ pathname: "/login", state: { from: props.location } }}
-          />
+          <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
         )
       }
     />
