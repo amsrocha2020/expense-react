@@ -22,7 +22,7 @@
     }
 
     .sidebar-expandIcon {
-        color: #fff;
+        color: #555555;
         float: right;
     }
     
@@ -70,6 +70,12 @@
             justify-content: flex-start;
             flex: 1;
             background: #2f323a;
+
+            .is-active,
+            .is-active > .sidebar-text {
+                color: #fff !important;
+            }
+            
             [data-toggle="collapse"]:before {
                 content: " ";
                 border: solid;

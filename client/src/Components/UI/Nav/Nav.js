@@ -11,10 +11,7 @@ const nav = (props) => {
 
   return (
     <div className="navbar navbar-expand">
-      <span
-        className="sidebar-toggle d-flex mr-2"
-        onClick={() => setleftOpen(!leftOpen)}
-      >
+      <span className="sidebar-toggle d-flex mr-2" onClick={() => setleftOpen(!leftOpen)}>
         <i className="hamburger align-self-center"></i>
       </span>
       <form className="form-inline">
@@ -35,13 +32,7 @@ const nav = (props) => {
             />
           </li>
           <li className="nav-item">
-            {/* <img
-              className="painel-control svg-inline--fa align-middle mr-2"
-              src="./notifications.svg"
-              alt="notification"
-            /> */}
-            <DropdownButton
-              id="dropdown-basic-button"
+            <DropdownButton id="dropdown-basic-button"
               title={
                 <span>
                   <i className="fa fa-user fa-fw"></i>
