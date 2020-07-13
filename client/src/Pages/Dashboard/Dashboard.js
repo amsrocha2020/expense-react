@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from "react";
-import { FormControl, InputGroup, Button } from "react-bootstrap";
+import { FormControl, InputGroup, Button, Row, Col } from "react-bootstrap";
 import DatePicker from "react-datepicker";
 
 import moment from "moment";
@@ -10,6 +10,7 @@ import Forms from "../../Components/UI/Forms/Forms";
 import Table from "../../Components/UI/Table/Table";
 import Doughnut from "../../Components/Charts/Doughnut";
 import Crosshair from "../../Components/Charts/Crosshair";
+import {utils} from '../../Utils/Utils';
 
 import { GlobalContext } from "../../context/GlobalState";
 
@@ -19,16 +20,20 @@ const Dashboard = (props) => {
   const { transactions, getTransactions } = useContext(GlobalContext);
   const { modalTransaction, modalTrans } = useContext(GlobalContext);
 
-  const [startDate, setStartDate] = useState(new Date().setDate( new Date().getDate() - 30 ));
+  const [startDate, setStartDate] = useState(
+    new Date().setDate(new Date().getDate() - 30)
+  );
   const [endDate, setEndDate] = useState(new Date());
   const [search, setSearch] = React.useState("");
 
-  const amounts = transactions.map((transaction) => transaction.amount);
+  let filterDate = utils(startDate, endDate, transactions);
+  
+  const amounts = filterDate.map((transaction) => transaction.amount);
   const total = amounts.reduce((acc, item) => (acc += item), 0);
 
   const balancoAnual = () => {
-    let totalAnual = 1200 + total;
-    let percGanhos = (1200 / totalAnual) * 100;
+    let totalAnual = 1500 + total;
+    let percGanhos = (1500 / totalAnual) * 100;
     let percDespesas = (total / totalAnual) * 100;
 
     return [
@@ -41,69 +46,110 @@ const Dashboard = (props) => {
     let val = e.target.value;
 
     setSearch(val.toLowerCase());
-  }
+  };
 
   const expensesM = () => {
-    const trans = transactions.map((transaction) => {
+
+    const trans = filterDate.map((transaction) => {
       return {
         x: new Date(moment(transaction.date).format("YYYY-MM-DD")),
         y: transaction.amount,
-      }
-    })
+      };
+    });
 
     useEffect(() => {
       getTransactions();
-    }, [])
+    }, []);
 
     return trans;
-  }
+  };
 
   return (
     <div className="dashboard">
       <h3 className="mb-4">Dasboard</h3>
       <div className="card-columns align-center mb-3">
-        <Cards cardClass="earn" cardDescription="Balance" cardDescriptionsub="Earnings" money="1000 "/>
+        <Cards cardClass="earn" cardDescription="Balance" cardDescriptionsub="Earnings" money="1000" />
         <Cards cardClass="costs" cardDescription="Expenses" cardDescriptionsub="Spending" money={total} />
-        <Cards cardClass="savings" cardDescription="Savings" cardDescriptionsub="Save" money={1000 - total} />
+        <Cards cardClass="savings" cardDescription="Savings" cardDescriptionsub="Save" money={1000 - total}/>
       </div>
+
       <div className="transactions">
-        <div className="row">
-          <div className="col-2">
-            <Button className="mr-3" variant="success" onClick={() => modalTrans(true)} >Add Transaction</Button>
-          </div>
-          <div className="col">
-            <div className="rage-dates">
-              <div className="row">
-                <div className="mr-4">
-                  <DatePicker selected={startDate} onChange={(date) => setStartDate(date)} selectsStart startDate={startDate} endDate={endDate} />
-                </div>
-                <div className="mr-3">
-                  <DatePicker selected={endDate} onChange={(date) => setEndDate(date)} selectsEnd startDate={startDate} endDate={endDate} minDate={startDate} className="mr-2" />
-                </div>
-                <InputGroup className="mb-3 input-search" value={search} onChange={onChangeSearch}>
-                    <InputGroup.Prepend>
-                      <InputGroup.Text id="search-input"  >
-                        <i className="fa fa-search" aria-hidden="true"></i>
-                      </InputGroup.Text>
-                    </InputGroup.Prepend>
-                    <FormControl placeholder="Search" aria-label="search" aria-describedby="basic-addon1" />
-                  </InputGroup>
-              </div>
-            </div>
-          </div>
-        </div>
-        <Table searchStartDate={startDate} searchEndDate={endDate} searchInput={search}/>
+        <Row>
+          <Col xs={2}>
+            <Button className="mr-3" variant="success" onClick={() => modalTrans(true)}>
+              Add Transaction
+            </Button>
+          </Col>
+
+          <Col xs={2}>
+            <InputGroup className="input-date mr-4">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="search-date-start">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                </InputGroup.Text>
+                <DatePicker
+                  selected={startDate}
+                  onChange={(date) => setStartDate(date)}
+                  selectsStart
+                  startDate={startDate}
+                  endDate={endDate}
+                />
+              </InputGroup.Prepend>
+            </InputGroup>
+          </Col>
+
+          <Col xs={2}>
+            <InputGroup className="input-date mr-3">
+              <InputGroup.Prepend>
+                <InputGroup.Text id="search-date-end">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                </InputGroup.Text>
+                <DatePicker
+                  selected={endDate}
+                  onChange={(date) => setEndDate(date)}
+                  selectsEnd
+                  startDate={startDate}
+                  endDate={endDate}
+                  minDate={startDate}
+                  className="mr-2"
+                />
+              </InputGroup.Prepend>
+            </InputGroup>
+          </Col>
+
+          <Col xs={6}>
+            <InputGroup className="mb-3 input-search" value={search} onChange={onChangeSearch}>
+              <InputGroup.Prepend>
+                <InputGroup.Text id="search-input">
+                  <i className="fa fa-search" aria-hidden="true"></i>
+                </InputGroup.Text>
+              <FormControl placeholder="Search" aria-label="search" aria-describedby="basic-addon1" />
+              </InputGroup.Prepend>
+            </InputGroup>
+          </Col>
+        </Row>
+        <Table
+          searchStartDate={startDate}
+          searchEndDate={endDate}
+          searchInput={search}
+        />
         <div>
-          <div className="row">
-            <div className="col-6">
+          <Row>
+            <Col xs={6}>
               <Doughnut balAnual={balancoAnual()} />
-            </div>
-            <div className="col-6">
+            </Col>
+
+            <Col xs={6}>
               <Crosshair expensesMonth={expensesM()} />
-            </div>
-          </div>
+            </Col>
+          </Row>
         </div>
-        <Modal show={modalTransaction} onHide={() => modalTrans(false)} titlemodal="Add Transaction" >
+        
+        <Modal
+          show={modalTransaction}
+          onHide={() => modalTrans(false)}
+          titlemodal="Add Transaction"
+        >
           <Forms />
         </Modal>
       </div>
@@ -111,4 +157,4 @@ const Dashboard = (props) => {
   );
 };
 
-export default Dashboard
+export default Dashboard;

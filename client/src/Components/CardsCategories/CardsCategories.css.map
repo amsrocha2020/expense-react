@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AACI,eADW,CACX,KAAK,CAAC;EACF,KAAK,EAAE,IAAI;CAKd;;AAPL,AAGQ,eAHO,CACX,KAAK,CAED,KAAK,CAAC;EACF,OAAO,EAAE,CAAC;EACV,UAAU,EAAE,IAAI;CACnB",
+    "sources": [
+        "CardsCategories.scss"
+    ],
+    "names": [],
+    "file": "CardsCategories.css"
+}

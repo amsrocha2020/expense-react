@@ -1,8 +1,8 @@
-import React, { useContext, useEffect, useState } from "react"
-import { Button, Form } from "react-bootstrap"
+import React, { useContext, useEffect, useState } from "react";
+import { Button, Form, Row, Col } from "react-bootstrap";
 
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css"
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import { GlobalContext } from "../../../context/GlobalState";
 
@@ -49,13 +49,13 @@ const Forms = ({ transactionId }) => {
   }, []);
 
   return (
-    <form
+    <Form
       className="form-transactions"
       name="form-transactions"
       onSubmit={onSubmit}
     >
-      <div className="row">
-        <div className="col categories">
+      <Row>
+        <Col className="categories">
           <Form.Group controlId="exampleForm.SelectCustomSizeLg">
             <Form.Label>Categories</Form.Label>
             <Form.Control
@@ -72,8 +72,8 @@ const Forms = ({ transactionId }) => {
               ))}
             </Form.Control>
           </Form.Group>
-        </div>
-        <div className="col">
+        </Col>
+        <Col>
           <Form.Group controlId="exampleForm.SelectCustomSizeLg">
             <Form.Label>Type Categories</Form.Label>
             <Form.Control
@@ -91,18 +91,18 @@ const Forms = ({ transactionId }) => {
               ))}
             </Form.Control>
           </Form.Group>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
-      <div className="row">
-        <div className="col">
+      <Row>
+        <Col>
           <label htmlFor="data-categorie">Date</label>
           <DatePicker
             selected={startDate}
             onChange={(date) => setStartDate(date)}
           />
-        </div>
-        <div className="col states">
+        </Col>
+        <Col className="states">
           <Form.Group controlId="exampleForm.SelectCustomSizeLg2">
             <Form.Label>State</Form.Label>
             <Form.Control
@@ -116,11 +116,11 @@ const Forms = ({ transactionId }) => {
               <option value="Unpaid">Unpaid</option>
             </Form.Control>
           </Form.Group>
-        </div>
-      </div>
+        </Col>
+      </Row>
 
-      <div className="row mb-3">
-        <div className="col">
+      <Row className="mb-3">
+        <Col>
           <label htmlFor="value-categorie">Value in Euros</label>
           <input
             type="text"
@@ -128,8 +128,8 @@ const Forms = ({ transactionId }) => {
             value={amount}
             onChange={(e) => setAmount(e.target.value)}
           ></input>
-        </div>
-      </div>
+        </Col>
+      </Row>
       <div className="text-right">
         <Button
           className="mr-3"
@@ -146,7 +146,7 @@ const Forms = ({ transactionId }) => {
           Save Changes
         </Button>
       </div>
-    </form>
+    </Form>
   );
 };
 

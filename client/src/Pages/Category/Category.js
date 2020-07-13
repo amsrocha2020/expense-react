@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Form, Button, Row, Col } from "react-bootstrap";
-import axios from "axios";
 
 import { GlobalContext } from "../../context/GlobalState";
+
+import './Category.css';
 
 const Categories = () => {
   const [text, setText] = useState("");
@@ -24,16 +25,16 @@ const Categories = () => {
   }, []);
 
   return (
-    <div className="categorias">
+    <div class="categories">
       <h3 className="mb-4">Categories</h3>
       <Form onSubmit={onSubmit}>
-        <Form.Row>
-          <Col sm={4}>
+        <Row>
+          <Col>
             <Form.Group controlId="category">
               <Form.Control type="text" placeholder="Categories" value={text} onChange={(e) => setText(e.target.value)} />
             </Form.Group>
           </Col>
-          <Col sm={4}>
+          <Col>
             <Form.Group controlId="category-types">
               <Form.Control as="select" placeholder="Symbol Categories">
                 <option>1</option>
@@ -44,12 +45,12 @@ const Categories = () => {
               </Form.Control>
             </Form.Group>
           </Col>
-          <Col sm={4}>
-          <Button type="submit" className="add earn btn-categories">Add Categories</Button>
+          <Col>
+            <Button type="submit" className="add earn btn-categories">Add Categories</Button>
           </Col>
-        </Form.Row>
+        </Row>
       </Form>
-      <ul className="list mt-5">
+      <ul className="list">
         {Object.keys(categories).length > 0
           ? categories.map((category) => (
               <li className="mb-3" key={category._id}>

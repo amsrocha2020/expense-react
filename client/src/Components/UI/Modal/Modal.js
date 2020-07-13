@@ -1,8 +1,6 @@
 import React from "react";
 import { Modal } from "react-bootstrap";
 
-import { GlobalContext } from "../../../context/GlobalState";
-
 const modal = (props) => {
 
   return (

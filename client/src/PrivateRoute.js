@@ -1,5 +1,5 @@
-import React, { useContext } from "react";
-import { GlobalContext } from "./context/GlobalState";
+import React from "react";
+// import { GlobalContext } from "./context/GlobalState";
 import { Redirect, Route } from "react-router-dom";
 import { useBetween } from "use-between";
 import useShareableState from "./useShareableState/useShareableState";
@@ -9,7 +9,7 @@ import Footer from "./Components/UI/Footer/Footer";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { leftOpen } = useBetween(useShareableState);
-  let { isAuthUser } = useContext(GlobalContext);
+  // let { isAuthUser } = useContext(GlobalContext);
   let leftOpenSide = leftOpen ? "open" : "closed";
 
   return (

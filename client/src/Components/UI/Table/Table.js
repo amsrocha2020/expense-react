@@ -13,12 +13,12 @@ import { GlobalContext } from "../../../context/GlobalState"
 const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
   const { transactions, getTransactions } = useContext(GlobalContext)
   const { categories, getCategories } = useContext(GlobalContext)
-  const { loading, loadingFx } = useContext(GlobalContext)
+  const { loadingFx } = useContext(GlobalContext)
   const { deleteTransaction } = useContext(GlobalContext)
   
   const [modalShow, setModalShow] = useState(false)
   const [currentPage, setCurrentPage] = useState(1)
-  const [contentPerPage, setcontentPerPage] = useState(5)
+  const [contentPerPage] = useState(5)
   
   // Get current lines table - Pagination
   const indexOfLastRow = currentPage * contentPerPage

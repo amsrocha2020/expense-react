@@ -1,42 +1,71 @@
-import React, { useContext, useEffect } from "react";
-
-import { Button } from "react-bootstrap";
+import React, { useState, useContext, useEffect } from "react";
+import { CardGroup, Button, Form, Col, Row } from "react-bootstrap";
+import CardsCategories from '../../Components/CardsCategories/CardsCategories';
 
 import { GlobalContext } from "../../context/GlobalState";
 
 const TypeCategory = () => {
 
-//   const [text, setText] = useState('');
-  const { typecategories, getTypeCategories } = useContext(GlobalContext);
-  const { deleteTypeCategories } = useContext(GlobalContext);
+  const [text, setText] = useState('');
+  const [catId, setCat] = useState('');
+  const { categories, getCategories } = useContext(GlobalContext);
+  const { getTypeCategories, addTypeCategory } = useContext(GlobalContext);
+  
+  const onSubmit = (e) => {
+    e.preventDefault();
 
-  useEffect(() => {
-    getTypeCategories();
+    const newTypeCategory = {
+      id: Math.floor(Math.random() * 100000000),
+      category_id: catId,
+      name: text,
+    };
+    addTypeCategory(newTypeCategory);
+  };
+
+  const handleChange = (e) => {
+    setCat(e.target.value)
+  }
+
+  useEffect(() => {  
+    getCategories()
+    getTypeCategories()
   }, []);
 
   return (
-    <div className="tipoCategorias">
+    <div className="typeCategories">
       <h3 className="mb-4">Type of Categories</h3>
-      {/* <form>
-        <input className="add-category mr-2" type="text" value={text} placeholder="Insert Type Categories"></input>
-        <button className="add earn btn-categories">Add Categories</button>
-      </form> */}
-      <ul className="list mt-5">
-      { Object.keys(typecategories).length > 0 ?
-        typecategories.map((typecategory) => (
-          <li className="mb-3" key={typecategory._id}>
-            <Button 
-                  key={typecategory.id}
-                  className="table-delete-btn" 
-                  variant="danger"
-                  onClick={() => deleteTypeCategories(typecategory._id)}>
-                    <i className="fa fa-trash-o" aria-hidden="true"></i>
-                  </Button>
-            {/* <button key={typecategory.id} onClick={() => deleteTypeCategories(typecategory._id)} className="delete-btn mr-3">x</button> */}
-            <span className="ml-3">{typecategory.name}</span>
-          </li>
-        )): 'No type categories add!'}
-      </ul>
+      <Form className="form-type-categories" onSubmit={onSubmit}>
+        <Row>
+          <Col>
+            <Form.Control className="mb-2" value={text} onChange={(e) => setText(e.target.value)} placeholder="Type Categories"
+            required />
+            </Col>
+            <Col>
+              <Form.Group controlId="exampleForm.SelectCustomSizeLg">
+                <Form.Control as="select" value={catId} onChange={handleChange} required custom>
+                  <option>Select Category</option>
+                  {categories.map((category) => (
+                    <option key={category._id} value={category._id}>
+                      {category.name}
+                    </option>
+                  ))}
+                </Form.Control>
+              </Form.Group>
+            </Col>
+            <Col xs="auto">
+              <Button className="add earn btn-categories" type="submit">Add Type Category</Button>
+            </Col>
+        </Row>
+      </Form>
+      <CardGroup>
+        <Row>
+          {categories.map((category) => (
+            <Col >
+              <CardsCategories nameCategory={category.name} categoryId={category._id} />
+            </Col>
+          ))}
+        </Row>
+      </CardGroup>
     </div>
   );
 };

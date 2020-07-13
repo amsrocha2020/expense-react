@@ -269,6 +269,28 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
+  async function addTypeCategory(typecategories) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.post("/typecategories", typecategories, config);
+
+      dispatch({
+        type: actionTypes.ADD_TYPECATEGORY,
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: actionTypes.TYPECATEGORIES_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  }
+
   async function deleteTypeCategories(id) {
     try {
       console.log(id);
@@ -308,6 +330,7 @@ export const GlobalProvider = ({ children }) => {
         addTransactions,
         deleteTransaction,
         getTypeCategories,
+        addTypeCategory,
         deleteTypeCategories,
         checkLoggedIn,
         logIn,

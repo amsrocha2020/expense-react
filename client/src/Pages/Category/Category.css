@@ -1,3 +1,8 @@
+.categories .list {
+  padding: 0;
+  list-style: none;
+}
+
 .add {
   color: #fff;
   -webkit-box-shadow: 0 4px 4px 0 rgba(17, 195, 139, 0.2);
@@ -6,19 +11,5 @@
   border-radius: 4px;
   height: 44px;
   width: 100%;
-}
-
-.categorias ul.list {
-  padding: 0;
-}
-
-.btn-categories {
-  width: 200px !important;
-}
-
-.categorias form {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
 }
 /*# sourceMappingURL=Category.css.map */
