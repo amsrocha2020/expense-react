@@ -57,25 +57,25 @@ const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
         <Table striped bordered hover className="table mt-2">
         <thead className="thead-dark">
           <tr>
-            <th>Category</th>
-            <th>Type Category</th>
-            <th>Date</th>
-            <th>State</th>
-            <th>Value</th>
+            <th scope="col">Category</th>
+            <th scope="col">Type Category</th>
+            <th scope="col">Date</th>
+            <th scope="col">State</th>
+            <th scope="col">Value</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           {currentRow.map((transaction) => (
             <tr key={transaction._id}>
-              <td>
+              <td data-label="Category">
               { categories
                 .filter(category => category._id === transaction.category_id) 
                 .map(category => category.name)
                 }</td>
-              <td>{transaction.type_category}</td>
-              <td>{moment(transaction.date).format("YYYY-MM-DD")}</td>
-              <td>
+              <td data-label="Type Category">{transaction.type_category}</td>
+              <td data-label="Date">{moment(transaction.date).format("YYYY-MM-DD")}</td>
+              <td data-label="State">
                 <span
                   className={
                     transaction.state === "Pay"
@@ -86,7 +86,7 @@ const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
                   {transaction.state}
                 </span>
               </td>
-              <td>€ {transaction.amount}</td>
+              <td data-label="Value">€ {transaction.amount}</td>
               <td>
                 <Button 
                   className="table-edit-btn mr-3" 

@@ -26,7 +26,6 @@ body {
     overflow: hidden;
     width: 100%;
     position: relative;
-    // height:100vh;
     min-height:100vh;
     .main {
       width: 100%;
@@ -63,4 +62,14 @@ select {
 
 .chart-liner {
   width: 650px;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    .wrapper {
+      .main {
+        margin-left: 0px;
+      }
+    }
+  }
 }

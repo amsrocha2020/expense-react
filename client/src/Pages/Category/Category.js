@@ -25,7 +25,7 @@ const Categories = () => {
   }, []);
 
   return (
-    <div class="categories">
+    <div className="categories">
       <h3 className="mb-4">Categories</h3>
       <Form onSubmit={onSubmit}>
         <Row>
@@ -34,18 +34,7 @@ const Categories = () => {
               <Form.Control type="text" placeholder="Categories" value={text} onChange={(e) => setText(e.target.value)} />
             </Form.Group>
           </Col>
-          <Col>
-            <Form.Group controlId="category-types">
-              <Form.Control as="select" placeholder="Symbol Categories">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Form.Control>
-            </Form.Group>
-          </Col>
-          <Col>
+          <Col xs={2}>
             <Button type="submit" className="add earn btn-categories">Add Categories</Button>
           </Col>
         </Row>
@@ -59,30 +48,44 @@ const Categories = () => {
                 >
                   <i className="fa fa-trash-o" aria-hidden="true"></i>
                 </Button>
-                {category.name === "Car" ? (
-                  <span className="ml-3">
-                    <i className="fa fa-car" aria-hidden="true"></i>
-                  </span>
-                ) : (
-                  ""
-                )}
-                {category.name === "Home" ? (
+                {category.name.toLowerCase() === "home" ? (
                   <span className="ml-3">
                     <i className="fa fa-home" aria-hidden="true"></i>
                   </span>
                 ) : (
                   ""
                 )}
-                {category.name === "Bank" ? (
+                {category.name.toLowerCase() === "car" ? (
+                  <span className="ml-3">
+                    <i className="fa fa-car" aria-hidden="true"></i>
+                  </span>
+                ) : (
+                  ""
+                )}
+                {category.name.toLowerCase() === "bank" ? (
                   <span className="ml-3">
                     <i className="fa fa-university" aria-hidden="true"></i>
                   </span>
                 ) : (
                   ""
                 )}
-                {category.name === "Investiment" ? (
+                {category.name.toLowerCase() === "investiment" ? (
                   <span className="ml-3">
                     <i className="fa fa-money" aria-hidden="true"></i>
+                  </span>
+                ) : (
+                  ""
+                )}
+                {category.name.toLowerCase() === "health" ? (
+                  <span className="ml-3">
+                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                  </span>
+                ) : (
+                  ""
+                )}
+                {category.name.toLowerCase() === "school" ? (
+                  <span className="ml-3">
+                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                   </span>
                 ) : (
                   ""

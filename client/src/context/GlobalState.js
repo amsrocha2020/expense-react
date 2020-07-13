@@ -2,6 +2,7 @@ import React, { createContext, useReducer } from "react";
 import * as actionTypes from './actionTypes';
 import AppReducer from "./AppReducer";
 import axios from "axios";
+import sidebar from "../Components/UI/Sidebar/Sidebar";
 
 // Initial state
 const initialState = {
@@ -30,6 +31,13 @@ export const GlobalProvider = ({ children }) => {
     dispatch({
       type: actionTypes.LOADING,
       payload: true,
+    });
+  }
+
+  function sidebar(leftOpen){
+    dispatch({
+      type: actionTypes.SIDEBAR,
+      payload: leftOpen,
     });
   }
 
@@ -335,7 +343,8 @@ export const GlobalProvider = ({ children }) => {
         checkLoggedIn,
         logIn,
         modalTrans,
-        loadingFx
+        loadingFx,
+        sidebar
       }}
     >
       {children}

@@ -513,6 +513,10 @@ img.painel-control {
   width: 100%;
 }
 
+.card-header {
+  font-size: 18px;
+}
+
 body {
   margin: 0;
   font-family: "Lato", sans-serif;
@@ -572,5 +576,11 @@ select {
 
 .chart-liner {
   width: 650px;
+}
+
+@media screen and (max-width: 600px) {
+  body .wrapper .main {
+    margin-left: 0px;
+  }
 }
 /*# sourceMappingURL=App.css.map */

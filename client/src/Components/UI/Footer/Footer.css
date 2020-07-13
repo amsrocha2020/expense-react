@@ -12,4 +12,10 @@
   margin-left: 185px;
   background-color: #f4f7fa;
 }
+
+@media screen and (min-width: 600px) {
+  .footer {
+    margin-left: 0px;
+  }
+}
 /*# sourceMappingURL=Footer.css.map */

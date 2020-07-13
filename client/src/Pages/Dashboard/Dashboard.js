@@ -75,17 +75,17 @@ const Dashboard = (props) => {
 
       <div className="transactions">
         <Row>
-          <Col xs={2}>
-            <Button className="mr-3" variant="success" onClick={() => modalTrans(true)}>
+          <Col className="mb-3" xs={12} sm={2}>
+            <Button  variant="success" onClick={() => modalTrans(true)}>
               Add Transaction
             </Button>
           </Col>
 
-          <Col xs={2}>
+          <Col className="mb-3" xs={6} sm={2}>
             <InputGroup className="input-date mr-4">
               <InputGroup.Prepend>
                 <InputGroup.Text id="search-date-start">
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  <i className="fa fa-calendar" aria-hidden="true"></i>
                 </InputGroup.Text>
                 <DatePicker
                   selected={startDate}
@@ -98,11 +98,11 @@ const Dashboard = (props) => {
             </InputGroup>
           </Col>
 
-          <Col xs={2}>
+          <Col className="mb-3" xs={6} sm={2}>
             <InputGroup className="input-date mr-3">
               <InputGroup.Prepend>
                 <InputGroup.Text id="search-date-end">
-                  <i class="fa fa-calendar" aria-hidden="true"></i>
+                  <i className="fa fa-calendar" aria-hidden="true"></i>
                 </InputGroup.Text>
                 <DatePicker
                   selected={endDate}
@@ -117,7 +117,7 @@ const Dashboard = (props) => {
             </InputGroup>
           </Col>
 
-          <Col xs={6}>
+          <Col xs={12} sm={6}>
             <InputGroup className="mb-3 input-search" value={search} onChange={onChangeSearch}>
               <InputGroup.Prepend>
                 <InputGroup.Text id="search-input">
@@ -135,11 +135,11 @@ const Dashboard = (props) => {
         />
         <div>
           <Row>
-            <Col xs={6}>
+            <Col className="mb-5" xs={12} sm={6}>
               <Doughnut balAnual={balancoAnual()} />
             </Col>
 
-            <Col xs={6}>
+            <Col xs={12} sm={6}>
               <Crosshair expensesMonth={expensesM()} />
             </Col>
           </Row>

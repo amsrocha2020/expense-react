@@ -23,3 +23,4 @@ export const CHECK_LOG_ERROR = 'CHECK_LOG_ERROR';
 export const MODAL_TRANSC = 'MODAL_TRANSC';
 
 export const LOADING = 'LOADING';
+export const SIDEBAR = 'SIDEBAR';

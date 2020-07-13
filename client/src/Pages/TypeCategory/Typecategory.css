@@ -1,0 +1,40 @@
+.tipoCategorias .list {
+  padding: 0;
+  list-style: none;
+}
+
+.tipoCategorias form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.tipoCategorias .btn-categories {
+  width: 200px !important;
+}
+
+.tipoCategorias .delete-btn {
+  cursor: pointer;
+  background-color: #e74c3c;
+  border: 0;
+  color: #fff;
+  font-size: 20px;
+  line-height: 20px;
+  padding: 2px 5px;
+  left: 0;
+}
+
+.add {
+  color: #fff;
+  -webkit-box-shadow: 0 4px 4px 0 rgba(17, 195, 139, 0.2);
+          box-shadow: 0 4px 4px 0 rgba(17, 195, 139, 0.2);
+  border: none;
+  border-radius: 4px;
+  height: 44px;
+  width: 100%;
+}
+
+.card-header {
+  font-size: 18px;
+}
+/*# sourceMappingURL=Typecategory.css.map */

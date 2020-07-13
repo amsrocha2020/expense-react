@@ -1,13 +1,11 @@
 import React, { useContext, useState } from "react";
-import { Nav, NavLink, Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import * as Feather from "react-feather";
-import useShareableState from "../../../useShareableState/useShareableState";
 
 import { GlobalContext } from "../../../context/GlobalState";
-import { useBetween } from "use-between";
 
 const sidebar = (props) => {
-  const { leftOpen } = useBetween(useShareableState);
+  const { leftOpen } =  useContext(GlobalContext);
   let leftOpenSide = leftOpen ? "open" : "closed";
 
   let { user } = useContext(GlobalContext);
@@ -91,7 +89,7 @@ const sidebar = (props) => {
                   <NavLink className="sidebar-link" to="/user" activeClassName='is-active'><i className="fa fa-address-card-o" aria-hidden="true"></i><span className="sidebar-text">Account</span></NavLink>
                 </li>
                 <li>
-                  <NavLink className="sidebar-link" to="/user" activeClassName='is-active'><i className="fa fa-key" aria-hidden="true"></i><span className="sidebar-text">Change Password</span></NavLink>
+                  <NavLink className="sidebar-link" to="/changepassword" activeClassName='is-active'><i className="fa fa-key" aria-hidden="true"></i><span className="sidebar-text">Change Password</span></NavLink>
                 </li>
               </ul>
             )}

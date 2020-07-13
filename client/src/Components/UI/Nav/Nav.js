@@ -1,17 +1,15 @@
-import React from "react";
-import { Dropdown, DropdownButton } from "react-bootstrap";
-
-import { useBetween } from "use-between";
-
+import React, { useContext } from "react";
+import { GlobalContext } from "../../../context/GlobalState";
 import AuthOptions from "../../auth/AuthOptions";
-import useShareableState from "../../../useShareableState/useShareableState";
+import { Dropdown, DropdownButton } from "react-bootstrap";
+import { NavLink } from "react-router-dom";
 
 const nav = (props) => {
-  const { leftOpen, setleftOpen } = useBetween(useShareableState);
+  const { leftOpen, sidebar } =  useContext(GlobalContext);
 
   return (
     <div className="navbar navbar-expand">
-      <span className="sidebar-toggle d-flex mr-2" onClick={() => setleftOpen(!leftOpen)}>
+      <span className="sidebar-toggle d-flex mr-2" onClick={() => sidebar(leftOpen)}>
         <i className="hamburger align-self-center"></i>
       </span>
       <form className="form-inline">
@@ -39,8 +37,9 @@ const nav = (props) => {
                 </span>
               }
             >
-              <Dropdown.Item href="#/action-1">Account</Dropdown.Item>
-              <Dropdown.Item href="#/action-2">Change Password</Dropdown.Item>
+              <NavLink className="dropdown-item" to="/user">Account</NavLink>
+              <Dropdown.Item eventKey="4"></Dropdown.Item>
+              <NavLink className="dropdown-item" to="/changepassword">Change Password</NavLink>
             </DropdownButton>
           </li>
           <li>
