@@ -30,6 +30,7 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.20",
     "nodemon": "^2.0.3",
-    "react-feather": "^2.0.8"
+    "react-feather": "^2.0.8",
+    "react-month-picker": "^2.2.0"
   }
 }

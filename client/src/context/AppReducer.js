@@ -3,7 +3,6 @@ import * as actionTypes from './actionTypes';
 export default (state = [], action) => {
   switch (action.type) {
     case actionTypes.SIDEBAR:
-      console.log("Sidebar >> ", action.payload)
       return {
         ...state,
         leftOpen: !action.payload,

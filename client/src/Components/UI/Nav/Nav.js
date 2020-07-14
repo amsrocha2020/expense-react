@@ -39,7 +39,6 @@ const nav = (props) => {
             >
               <NavLink className="dropdown-item" to="/user">Account</NavLink>
               <Dropdown.Item eventKey="4"></Dropdown.Item>
-              <NavLink className="dropdown-item" to="/changepassword">Change Password</NavLink>
             </DropdownButton>
           </li>
           <li>

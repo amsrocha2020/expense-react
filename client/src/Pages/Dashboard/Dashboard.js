@@ -66,7 +66,7 @@ const Dashboard = (props) => {
 
   return (
     <div className="dashboard">
-      <h3 className="mb-4">Dasboard</h3>
+      <h3 className="mb-4">Dashboard</h3>
       <div className="card-columns align-center mb-3">
         <Cards cardClass="earn" cardDescription="Balance" cardDescriptionsub="Earnings" money="1000" />
         <Cards cardClass="costs" cardDescription="Expenses" cardDescriptionsub="Spending" money={total} />

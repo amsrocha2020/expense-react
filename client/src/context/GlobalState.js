@@ -2,7 +2,6 @@ import React, { createContext, useReducer } from "react";
 import * as actionTypes from './actionTypes';
 import AppReducer from "./AppReducer";
 import axios from "axios";
-import sidebar from "../Components/UI/Sidebar/Sidebar";
 
 // Initial state
 const initialState = {

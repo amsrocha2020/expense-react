@@ -88,9 +88,6 @@ const sidebar = (props) => {
                 <li>
                   <NavLink className="sidebar-link" to="/user" activeClassName='is-active'><i className="fa fa-address-card-o" aria-hidden="true"></i><span className="sidebar-text">Account</span></NavLink>
                 </li>
-                <li>
-                  <NavLink className="sidebar-link" to="/changepassword" activeClassName='is-active'><i className="fa fa-key" aria-hidden="true"></i><span className="sidebar-text">Change Password</span></NavLink>
-                </li>
               </ul>
             )}
           </li>
