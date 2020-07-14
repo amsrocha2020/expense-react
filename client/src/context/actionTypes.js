@@ -13,6 +13,11 @@ export const ADD_TRANSACTION = 'ADD_TRANSACTION';
 export const DELETE_TRANSACTION = 'DELETE_TRANSACTION';
 export const TRANSACTIONS_ERROR = 'TRANSACTIONS_ERROR';
 
+export const GET_BUDGETS = 'GET_BUDGETS';
+export const ADD_BUDGET = 'ADD_BUDGET';
+export const DELETE_BUDGET = 'DELETE_BUDGET';
+export const BUDGET_ERROR = 'BUDGET_ERROR';
+
 export const LOGIN = 'LOGIN';
 export const LOGIN_ERROR = 'LOGIN_ERROR';
 export const LOGOUT = 'LOGOUT';

@@ -10,30 +10,32 @@ import Forms from "../../Components/UI/Forms/Forms";
 import Table from "../../Components/UI/Table/Table";
 import Doughnut from "../../Components/Charts/Doughnut";
 import Crosshair from "../../Components/Charts/Crosshair";
-import {utils} from '../../Utils/Utils';
+import { utils, utilsFilterBudget } from '../../Utils/Utils';
 
 import { GlobalContext } from "../../context/GlobalState";
 
 import "./Dashboard.css";
 
 const Dashboard = (props) => {
+  const { budgets, getBudgets } = useContext(GlobalContext);
   const { transactions, getTransactions } = useContext(GlobalContext);
   const { modalTransaction, modalTrans } = useContext(GlobalContext);
 
-  const [startDate, setStartDate] = useState(
+  const [ startDate, setStartDate ] = useState(
     new Date().setDate(new Date().getDate() - 30)
   );
-  const [endDate, setEndDate] = useState(new Date());
-  const [search, setSearch] = React.useState("");
+  const [ endDate, setEndDate ] = useState(new Date());
+  const [ search, setSearch ] = React.useState("");
 
   let filterDate = utils(startDate, endDate, transactions);
+  let valueAnual = utilsFilterBudget(startDate, endDate, budgets);
   
   const amounts = filterDate.map((transaction) => transaction.amount);
   const total = amounts.reduce((acc, item) => (acc += item), 0);
 
   const balancoAnual = () => {
-    let totalAnual = 1500 + total;
-    let percGanhos = (1500 / totalAnual) * 100;
+    let totalAnual = valueAnual + total;
+    let percGanhos = (valueAnual / totalAnual) * 100;
     let percDespesas = (total / totalAnual) * 100;
 
     return [
@@ -58,6 +60,7 @@ const Dashboard = (props) => {
     });
 
     useEffect(() => {
+      getBudgets();
       getTransactions();
     }, []);
 
@@ -68,7 +71,7 @@ const Dashboard = (props) => {
     <div className="dashboard">
       <h3 className="mb-4">Dashboard</h3>
       <div className="card-columns align-center mb-3">
-        <Cards cardClass="earn" cardDescription="Balance" cardDescriptionsub="Earnings" money="1000" />
+        <Cards cardClass="earn" cardDescription="Balance" cardDescriptionsub="Earnings" money={valueAnual} />
         <Cards cardClass="costs" cardDescription="Expenses" cardDescriptionsub="Spending" money={total} />
         <Cards cardClass="savings" cardDescription="Savings" cardDescriptionsub="Save" money={1000 - total}/>
       </div>

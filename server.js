@@ -8,6 +8,7 @@ dotenv.config({ path: './config/config.env'});
 
 connectDB();
 
+const budget = require('./routes/budgets');
 const categories = require('./routes/categories');
 const typeCategories = require('./routes/typeCategories');
 const transactions = require('./routes/transactions');
@@ -23,11 +24,11 @@ if(process.env.NODE_ENV === 'development') {
  app.use(morgan('dev'));
 }
 
+app.use('/budgets', budget);
 app.use('/categories', categories);
 app.use('/dashboard', transactions);
 app.use('/typecategories', typeCategories);
 app.use('/users', user);
-
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));

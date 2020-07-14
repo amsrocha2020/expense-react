@@ -78,14 +78,14 @@ const Categories = () => {
                 )}
                 {category.name.toLowerCase() === "health" ? (
                   <span className="ml-3">
-                    <i class="fa fa-medkit" aria-hidden="true"></i>
+                    <i className="fa fa-medkit" aria-hidden="true"></i>
                   </span>
                 ) : (
                   ""
                 )}
                 {category.name.toLowerCase() === "school" ? (
                   <span className="ml-3">
-                    <i class="fa fa-graduation-cap" aria-hidden="true"></i>
+                    <i className="fa fa-graduation-cap" aria-hidden="true"></i>
                   </span>
                 ) : (
                   ""

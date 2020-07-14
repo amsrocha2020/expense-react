@@ -112,6 +112,24 @@ export default (state = [], action) => {
         ...state,
         error: action.payload,
       };
+    case actionTypes.GET_BUDGETS:
+        return {
+          ...state,
+          loading: false,
+          budgets: action.payload,
+        };
+    case actionTypes.ADD_BUDGET:
+        return {
+          ...state,
+          budgets: [...state.budgets, action.payload],
+        };
+    case actionTypes.DELETE_BUDGET:
+        return {
+          ...state,
+          budgets: state.budgets.filter(
+          (budget) => budget._id !== action.payload
+          ),
+        };
     default:
       return state;
   }

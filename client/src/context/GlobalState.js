@@ -9,6 +9,7 @@ const initialState = {
   categories: [],
   typecategories: [],
   transactions: [],
+  budgets: [],
   error: null,
   loading: false,
   user: undefined,
@@ -24,7 +25,7 @@ export const GlobalContext = createContext(initialState);
 export const GlobalProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AppReducer, initialState);
   
-  // Actions
+  // Loading
   function loadingFx(loading) {
     
     dispatch({
@@ -33,6 +34,7 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  // SideBar
   function sidebar(leftOpen){
     dispatch({
       type: actionTypes.SIDEBAR,
@@ -40,6 +42,7 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  // Modal Transactions
   function modalTrans(modalTransaction) {
     dispatch({
       type: actionTypes.MODAL_TRANSC,
@@ -47,6 +50,7 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
+  // Login
   async function checkLoggedIn() {  
     try {
       
@@ -110,6 +114,7 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
+  // Categories
   async function getCategories() {
     try {
       const res = await axios.get("/categories");
@@ -181,6 +186,7 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
+  // Transaction
   async function getTransactions() {
     try {
       state.loading = true;
@@ -260,6 +266,7 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
+  // Type Categories
   async function getTypeCategories() {
     try {
       const res = await axios.get("/typecategories");
@@ -315,6 +322,61 @@ export const GlobalProvider = ({ children }) => {
     }
   }
 
+  // Budgets
+  async function getBudgets() {
+    try {
+      const res = await axios.get("/budgets");
+
+      dispatch({
+        type: actionTypes.GET_BUDGETS,
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: actionTypes.BUDGET_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  }
+
+  async function addBudget(budgets) {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const res = await axios.post("/budgets", budgets, config);
+
+      dispatch({
+        type: actionTypes.ADD_BUDGET,
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: actionTypes.BUDGET_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  }
+
+  async function deleteBudgets(id) {
+    try {
+      await axios.delete(`/budgets/${id}`);
+
+      dispatch({
+        type: actionTypes.DELETE_BUDGET,
+        payload: id,
+      });
+    } catch (err) {
+      dispatch({
+        type: actionTypes.BUDGET_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -322,6 +384,7 @@ export const GlobalProvider = ({ children }) => {
         categories: state.categories,
         typecategories: state.typecategories,
         transactions: state.transactions,
+        budgets: state.budgets,
         error: state.error,
         loading: state.loading,
         user: state.user,
@@ -339,6 +402,9 @@ export const GlobalProvider = ({ children }) => {
         getTypeCategories,
         addTypeCategory,
         deleteTypeCategories,
+        getBudgets,
+        addBudget,
+        deleteBudgets,
         checkLoggedIn,
         logIn,
         modalTrans,
