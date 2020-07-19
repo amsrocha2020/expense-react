@@ -11,7 +11,7 @@ const User = (props) => {
   return (
   <React.Fragment>
   {user ? (
-    <Col xs={12} sm={6}>
+    <Col xs={12} sm={12} lg={8}>
       <Card body>
       <div className="text-center">
         <div className="m-b">

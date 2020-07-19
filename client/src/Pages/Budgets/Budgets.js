@@ -1,5 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Form, Col, Row } from "react-bootstrap";
+import CardModule from '../../Components/CardModule/CardModule';
+import ChartBar from '../../Components/Charts/Bar';
 
 import { GlobalContext } from "../../context/GlobalState";
 
@@ -11,6 +13,15 @@ const Budgets = () => {
     const [ value, setValue ] = useState('');
     const { budgets, getBudgets } = useContext(GlobalContext);
     const { addBudget, deleteBudgets } = useContext(GlobalContext);
+    const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+
+    const chart = () => {
+        
+        const chartValue = budgets.map((budget) => {
+            return {label: monthNames[budget.month - 1], y: budget.value}
+        })
+        return [chartValue];
+      };
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -31,7 +42,7 @@ const Budgets = () => {
     return (
         <div className="budgets">
             <h3 className="mb-4">Budgets</h3>
-            <Form className="form-type-categories" onSubmit={onSubmit}>
+            <Form className="mb-5 form-type-categories" onSubmit={onSubmit}>
                  <Row>
                     <Col>
                         <Form.Group controlId="exampleForm.SelectCustomSizeLg1">
@@ -88,21 +99,30 @@ const Budgets = () => {
                     </Col>
                 </Row>
             </Form>
-            <ul className="list">
-                {budgets.map((budget) => (
-                    <li className="mb-3" key={budget._id}>
-                        <Button 
-                            key={budget.id} 
-                            className="table-delete-btn" 
-                            variant="danger" 
-                            onClick={() => deleteBudgets(budget._id)}
-                        >
-                           <i className="fa fa-trash-o" aria-hidden="true"></i>  
-                        </Button>
-                        <span className="ml-3">{budget.month}/{budget.year}: {budget.value}€</span>
-                    </li>
-                ))}
-            </ul>
+            <Row>
+                <Col xs={3}>
+                    <ul className="list">
+                        {budgets.map((budget) => (
+                            <li className="mb-3" key={budget._id}>
+                                <Button 
+                                    key={budget.id} 
+                                    className="table-delete-btn" 
+                                    variant="danger" 
+                                    onClick={() => deleteBudgets(budget._id)}
+                                >
+                                <i className="fa fa-trash-o" aria-hidden="true"></i>  
+                                </Button>
+                                <span className="ml-3">{monthNames[budget.month - 1]} {budget.year}: <b>{budget.value}€</b></span>
+                            </li>
+                        ))}
+                    </ul>
+                </Col>
+                <Col xs={9}>
+                    <CardModule title="Earnings">
+                        <ChartBar chart={chart()}/>
+                    </CardModule>
+                </Col>
+            </Row>
         </div>
     );
 }

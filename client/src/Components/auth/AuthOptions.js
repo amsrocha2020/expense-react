@@ -3,30 +3,21 @@ import { useHistory } from "react-router-dom";
 import { GlobalContext } from '../../context/GlobalState';
 
 function AuthOptions() {
-    const { checkLoggedIn } = useContext(GlobalContext);
-    let { user, isAuthUser } = useContext(GlobalContext);
+    let { logOut, user, isAuthUser } = useContext(GlobalContext);
 
     let history = useHistory()
 
     const register = () => history.push("/register");
     const login    = () => history.push("/login");
     const logout   = () => {
-        isAuthUser = false
         user = {}
-        console.log("[AuthOptions] isAuthUser >> ", isAuthUser)
-        console.log("[AuthOptions] User Data >> ", user)
-        localStorage.setItem("auth-token", "")
+        logOut(user)
         history.push("/login")
     };
-    
-    useEffect(() => {
-        checkLoggedIn();
-      }, []);
 
     return(
         <Fragment>
-            {/* {isAuthUser ? ( */}
-            {true ? (
+            {isAuthUser ? (
                 <button onClick={logout}>Logout</button>
                 ) : (
                     <div>

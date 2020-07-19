@@ -22,7 +22,5 @@ filterBudgetByDate.map( (budget) => {
   return valueAnual
 } )
 
-console.log("val >> ", valueAnual)
-
 return valueAnual;
 } 

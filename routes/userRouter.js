@@ -36,7 +36,6 @@ router.post('/register', async (req, res) => {
         //Hashing password
         const salt = await bcrypt.genSalt();
         const passwordHash = await bcrypt.hash(password, salt);
-        // console.log(passwordHash);
 
         const newuser = new User({
             firstName,
@@ -91,7 +90,6 @@ router.post('/login', async (req, res) => {
                 email: user.email
             }
         })
-        console.log(token);
     } catch (err) {
         res.status(500).json({error: err.message})
     }
@@ -99,7 +97,6 @@ router.post('/login', async (req, res) => {
 
 // Delete Account
 router.delete("/delete", auth, async (req, res) => {
-    // console.log(req.user);
     try {
         const deleteUser = await User.findByIdAndDelete(req.user);
         res.json(deleteUser);

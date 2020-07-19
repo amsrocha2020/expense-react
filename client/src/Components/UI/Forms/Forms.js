@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { GlobalContext } from "../../../context/GlobalState";
 
 const Forms = ({ transactionId }) => {
-  const { addTransactions } = useContext(GlobalContext);
+  const { transactionUpdate, updateTransaction, addTransactions, getTransactionsById } = useContext(GlobalContext);
   const { typecategories, getTypeCategories } = useContext(GlobalContext);
   const { categories,getCategories } = useContext(GlobalContext);
   const { modalTrans } = useContext(GlobalContext);
@@ -31,21 +31,34 @@ const Forms = ({ transactionId }) => {
       state: selectState,
       amount: amount,
     };
-    addTransactions(newTransaction);
+    
+    ( transactionId ) ? updateTransaction(transactionUpdate[0]._id,newTransaction) : addTransactions(newTransaction);   
   };
+
+  useEffect(() => {
+      if (transactionUpdate.length > 0) {
+          setCat(transactionUpdate[0].category_id); 
+          setTypeCat(transactionUpdate[0].type_category);
+          setSelectState(transactionUpdate[0].state);
+          setStartDate(new Date(transactionUpdate[0].date));
+          setAmount(transactionUpdate[0].amount);
+      }
+  },[transactionUpdate]);
 
   const handleChange = (e) => {
     setCat(e.target.value)
     
-    types = typecategories
-      .filter((typecategory) => typecategory.category_id === e.target.value)
+    types = typecategories.filter((typecategory) => typecategory.category_id === e.target.value)
     
     setTypes(types);
   }
 
-  useEffect(() => {  
+  useEffect(() => { 
+    if( transactionId ) {
+      getTransactionsById(transactionId);
+    } 
       getCategories()
-      getTypeCategories()
+      getTypeCategories()  
   }, []);
 
   return (
@@ -85,7 +98,6 @@ const Forms = ({ transactionId }) => {
               <option>Select Type Category</option>
               {types.map((category) => (
                 <option key={category._id} value={category.name}>
-                  {" "}
                   {category.name}
                 </option>
               ))}
@@ -97,9 +109,7 @@ const Forms = ({ transactionId }) => {
       <Row>
         <Col>
           <label htmlFor="data-categorie">Date</label>
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
+          <DatePicker selected={startDate} onChange={(date) => setStartDate(date)}
           />
         </Col>
         <Col className="states">
@@ -150,4 +160,4 @@ const Forms = ({ transactionId }) => {
   );
 };
 
-export default Forms;
+export default React.memo(Forms);

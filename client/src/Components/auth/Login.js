@@ -1,4 +1,4 @@
-import React, { useContext, useState, Fragment } from "react"
+import React, { useContext, useState, Fragment, useEffect } from "react"
 import * as ReactBootStrap from 'react-bootstrap'
 
 import "./Login.css"
@@ -7,25 +7,22 @@ import { GlobalContext } from "../../context/GlobalState"
 import { useHistory } from "react-router-dom"
 
 const Login = () => {
-  const { logIn, msgError } = useContext(GlobalContext)
-  // console.log("[Login]  isAuthUser >> ", isAuthUser)
+  const { isAuthUser, logIn, msgError } = useContext(GlobalContext)
 
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState()
-  const [loading, setLoading] = useState(false)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
 
   let history = useHistory()
 
+  if (isAuthUser) history.push("/");
+
   const submit = (e) => {
     e.preventDefault();
-    setLoading(true)
-    const userData = { email, password }
-    logIn(userData)
-    
-    history.push("/");
+    setLoading(true);
+    const userData = { email, password };
+    logIn(userData);
   };
-
-  console.log("[Login] >> ", loading)
 
   return (
     <Fragment>

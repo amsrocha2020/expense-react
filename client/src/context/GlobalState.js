@@ -9,6 +9,7 @@ const initialState = {
   categories: [],
   typecategories: [],
   transactions: [],
+  transactionUpdate: [],
   budgets: [],
   error: null,
   loading: false,
@@ -50,41 +51,7 @@ export const GlobalProvider = ({ children }) => {
     });
   }
 
-  // Login
-  async function checkLoggedIn() {  
-    try {
-      
-      let token = localStorage.getItem("auth-token");
-      if (token === null) {
-        localStorage.setItem("auth-token", "");
-        token = "";
-      }
-
-      const tokenRes = await axios.post("/users/tokenIsValid", null, {
-        headers: { "x-auth-token": token },
-      });
-      
-      if (tokenRes.data) {
-        const userRes = await axios.get("/users/", {
-          headers: { "x-auth-token": token },
-        });
-        
-        dispatch({
-          type: actionTypes.CHECK_LOG,
-          payload: userRes.data,
-        });
-        
-      }
-      
-    } catch (err) {
-      dispatch({
-        type: actionTypes.CHECK_LOG_ERROR,
-        payload: err.response.data.error,
-      });
-    }
-  }
-
-  async function logIn(user, loading) {
+  async function logIn(user) {
 
     const config = {
       headers: {
@@ -93,12 +60,8 @@ export const GlobalProvider = ({ children }) => {
     };
 
     try {
-      console.log("[GlobalState] User Data >> ", user)
       const res = await axios.post("/users/login", user, config);
-      
       localStorage.setItem("auth-token", res.data.token);
-      console.log("[GlobalState] result get uses >> ", res.data)
-      console.log("[GlobalState] isAuthUser >> ", state.isAuthUser)
 
       dispatch({
         type: actionTypes.LOGIN,
@@ -106,7 +69,23 @@ export const GlobalProvider = ({ children }) => {
       });
       
     } catch (err) {
-      console.log("[GlobalState] LOGIN ERROR", err.response.data)
+      dispatch({
+        type: actionTypes.LOGIN_ERROR,
+        payload: err.response.data,
+      });
+    }
+  }
+
+  async function logOut(user) {
+    try {
+      localStorage.clear();
+
+      dispatch({
+        type: actionTypes.LOGOUT,
+        payload: user,
+      });
+      
+    } catch (err) {
       dispatch({
         type: actionTypes.LOGIN_ERROR,
         payload: err.response.data,
@@ -135,7 +114,6 @@ export const GlobalProvider = ({ children }) => {
     try {
       state.loading = true
       const res = await axios.get(`/categories/${id}`)
-      console.log("[GlobalState] res.Categorie >> ", res)
       dispatch({
         type: actionTypes.GET_CATEGORIES,
         payload: res.data.data,
@@ -192,13 +170,7 @@ export const GlobalProvider = ({ children }) => {
       state.loading = true;
       const res = await axios.get("/dashboard");
 
-      console.log("[GlobalState] res >> ", res)
-
       const result = res.data.data.sort((a, b) => new Date(a.date) - new Date(b.date))
-
-      
-
-      console.log("[GlobalState] res 2 >> ", result)
 
       dispatch({
         type: actionTypes.GET_TRANSACTIONS,
@@ -216,7 +188,23 @@ export const GlobalProvider = ({ children }) => {
     try {
       const res = await axios.get(`/dashboard/${id}`);
       dispatch({
-        type: actionTypes.GET_TRANSACTIONS,
+        type: actionTypes.GET_TRANSACTIONSID,
+        payload: res.data.data,
+      });
+    } catch (err) {
+      dispatch({
+        type: actionTypes.TRANSACTIONS_ERROR,
+        payload: err.response.data.error,
+      });
+    }
+  }
+
+  async function updateTransaction(id,transactions) {
+    try {
+      const res = await axios.put(`/dashboard/${id}`, transactions);
+      
+      dispatch({
+        type: actionTypes.UPDATE_TRANSACTION,
         payload: res.data.data,
       });
     } catch (err) {
@@ -251,7 +239,6 @@ export const GlobalProvider = ({ children }) => {
 
   async function deleteTransaction(id) {
     try {
-      console.log("[GlobalState DeleteTransaction] loading", state.loading);
       await axios.delete(`/dashboard/${id}`);
 
       dispatch({
@@ -307,7 +294,6 @@ export const GlobalProvider = ({ children }) => {
 
   async function deleteTypeCategories(id) {
     try {
-      console.log(id);
       await axios.delete(`/typecategories/${id}`);
 
       dispatch({
@@ -384,6 +370,7 @@ export const GlobalProvider = ({ children }) => {
         categories: state.categories,
         typecategories: state.typecategories,
         transactions: state.transactions,
+        transactionUpdate: state.transactionUpdate,
         budgets: state.budgets,
         error: state.error,
         loading: state.loading,
@@ -399,14 +386,15 @@ export const GlobalProvider = ({ children }) => {
         getTransactionsById,
         addTransactions,
         deleteTransaction,
+        updateTransaction,
         getTypeCategories,
         addTypeCategory,
         deleteTypeCategories,
         getBudgets,
         addBudget,
         deleteBudgets,
-        checkLoggedIn,
         logIn,
+        logOut,
         modalTrans,
         loadingFx,
         sidebar

@@ -10,6 +10,7 @@ import Forms from "../../Components/UI/Forms/Forms";
 import Table from "../../Components/UI/Table/Table";
 import Doughnut from "../../Components/Charts/Doughnut";
 import Crosshair from "../../Components/Charts/Crosshair";
+import CardModule from '../../Components/CardModule/CardModule';
 import { utils, utilsFilterBudget } from '../../Utils/Utils';
 
 import { GlobalContext } from "../../context/GlobalState";
@@ -73,7 +74,7 @@ const Dashboard = (props) => {
       <div className="card-columns align-center mb-3">
         <Cards cardClass="earn" cardDescription="Balance" cardDescriptionsub="Earnings" money={valueAnual} />
         <Cards cardClass="costs" cardDescription="Expenses" cardDescriptionsub="Spending" money={total} />
-        <Cards cardClass="savings" cardDescription="Savings" cardDescriptionsub="Save" money={1000 - total}/>
+        <Cards cardClass="savings" cardDescription="Savings" cardDescriptionsub="Save" money={valueAnual - total}/>
       </div>
 
       <div className="transactions">
@@ -139,11 +140,15 @@ const Dashboard = (props) => {
         <div>
           <Row>
             <Col className="mb-5" xs={12} sm={6}>
-              <Doughnut balAnual={balancoAnual()} />
+              <CardModule title="Anual Balance">
+                <Doughnut balAnual={balancoAnual()} />
+              </CardModule>
             </Col>
 
             <Col xs={12} sm={6}>
-              <Crosshair expensesMonth={expensesM()} />
+              <CardModule title="Anual Expenses">
+                <Crosshair expensesMonth={expensesM()} />
+              </CardModule>
             </Col>
           </Row>
         </div>

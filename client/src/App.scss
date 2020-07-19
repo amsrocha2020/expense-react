@@ -27,6 +27,7 @@ body {
     width: 100%;
     position: relative;
     min-height:100vh;
+    
     .main {
       width: 100%;
       min-height: 100vh;
@@ -37,7 +38,7 @@ body {
       &.closed { margin-left: 0px; }
       
       .content {
-        padding: 15px;
+        padding: 65px 15px 0 15px;
       }
     }
   }

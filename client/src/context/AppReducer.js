@@ -23,7 +23,6 @@ export default (state = [], action) => {
         user: action.payload,
       };
     case actionTypes.LOGIN:
-      console.log("[AppReducer] payload", action.payload )
       return {
         ...state,
         loading: false,
@@ -36,7 +35,6 @@ export default (state = [], action) => {
           msgError: action.payload,
         };
     case actionTypes.LOGOUT:
-      localStorage.clear();
       return {
         ...state,
         isAuthUser: false,
@@ -94,6 +92,14 @@ export default (state = [], action) => {
         loading: false,
         transactions: action.payload,
       };
+      case actionTypes.GET_TRANSACTIONSID:
+        return {
+          ...state,
+          loading: false,
+          transactionUpdate: state.transactions.filter(
+            (transaction) => transaction._id === action.payload._id
+          )
+        };
     case actionTypes.ADD_TRANSACTION:
       return {
         ...state,
@@ -106,6 +112,12 @@ export default (state = [], action) => {
         transactions: state.transactions.filter(
           (transaction) => transaction._id !== action.payload
         ),
+      };
+    case actionTypes.UPDATE_TRANSACTION:
+      return {
+        ...state,
+        loading: false,
+        transactions: [...state.transactions, action.payload],
       };
     case actionTypes.TRANSACTIONS_ERROR:
       return {

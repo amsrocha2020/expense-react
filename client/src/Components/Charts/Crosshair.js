@@ -9,11 +9,6 @@ const Crosshair = (props) => {
     animationEnabled: true,
     theme: "light2",
     backgroundColor: "transparent",
-    title: {
-      text: "Anual Expenses",
-      fontFamily: "Lato, sans-serif",
-      fontSize: 20,
-    },
     axisX: {
       valueFormatString: "DD MMM",
       crosshair: {

@@ -1,28 +1,29 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Button, Spinner, Table } from 'react-bootstrap'
+import React, { useContext, useEffect, useState } from 'react';
+import { Button, Spinner, Table } from 'react-bootstrap';
 
-import moment from 'moment'
-import Modal from '../Modal/Modal'
-import Form from '../Forms/Forms'
-import Pagination from '../../Pagination/Pagination'
+import moment from 'moment';
+import Modal from '../Modal/Modal';
+import Form from '../Forms/Forms';
+import Pagination from '../../Pagination/Pagination';
 
-import "./Table.css"
+import "./Table.css";
 
-import { GlobalContext } from "../../../context/GlobalState"
+import { GlobalContext } from "../../../context/GlobalState";
 
 const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
-  const { transactions, getTransactions } = useContext(GlobalContext)
-  const { categories, getCategories } = useContext(GlobalContext)
-  const { loadingFx } = useContext(GlobalContext)
-  const { deleteTransaction } = useContext(GlobalContext)
+  const { transactions, getTransactions } = useContext(GlobalContext);
+  const { categories, getCategories } = useContext(GlobalContext);
+  const { loadingFx } = useContext(GlobalContext);
+  const { deleteTransaction } = useContext(GlobalContext);
   
-  const [modalShow, setModalShow] = useState(false)
-  const [currentPage, setCurrentPage] = useState(1)
-  const [contentPerPage] = useState(5)
-  
+  const [ modalShow, setModalShow ] = useState(false);
+  const [ currentPage, setCurrentPage ] = useState(1);
+  const [ contentPerPage ] = useState(5);
+  const [ transactionId, setTransactionId ] = useState();
+
   // Get current lines table - Pagination
-  const indexOfLastRow = currentPage * contentPerPage
-  const indexOfFirstRow = indexOfLastRow - contentPerPage
+  const indexOfLastRow = currentPage * contentPerPage;
+  const indexOfFirstRow = indexOfLastRow - contentPerPage;
   
   // Search by date
   let filterByDate = transactions.filter(item => {
@@ -33,8 +34,6 @@ const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
   // Search
   let currentRowFilter = filterByDate.filter(transaction => transaction.type_category.toLowerCase().includes(searchInput));
   let currentRow = currentRowFilter.slice(indexOfFirstRow, indexOfLastRow)
-
-  // setTransaction(prevTransactions => [...prevTransactions, currentRow])
 
   // Change page
   const paginate = pageNumber => setCurrentPage(pageNumber)
@@ -50,7 +49,7 @@ const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
       <Modal show={modalShow} 
               onHide={() => setModalShow(false)}
               titlemodal="Edit Transaction">
-              <Form />
+              <Form transactionId={transactionId}/>
       </Modal>
       {false ? <div><Spinner className="mt-5" animation="border" /></div> : (
         <div>
@@ -92,7 +91,7 @@ const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
                   className="table-edit-btn mr-3" 
                   variant="success"
                   onClick={() => {
-                    // setTransactionId(transaction._id)
+                    setTransactionId(transaction._id)
                     setModalShow(true)
                   }}>
                     <i className="fa fa-pencil" aria-hidden="true"></i>

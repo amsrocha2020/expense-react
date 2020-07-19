@@ -21,10 +21,42 @@ exports.getTransactions = async (req, res, next) => {
     }
 }
 
+// @desc Get one transaction
+// @route POST /api/v1/transactions
+// @access Public
 exports.getTransactionsById = async (req, res, next) => {
-    // res.send('GET transactions');
     try {
         const transactions = await Transaction.findById(req.params.id);
+
+        if(!Transaction) {
+            return res.status(404).json({
+                success: false,
+                error: 'No transaction found'
+            });
+        }
+        
+        return res.status(200).json({
+            success: true,
+            count: transactions.length,
+            data: transactions
+        });
+    } catch (err) {
+        return res.status(500).json({
+            success: false,
+            error: 'Server Error'
+        });
+    }
+}
+
+exports.updateTransaction = async (req, res, next) => {
+    try {
+        const transactions = await Transaction.findByIdAndUpdate(req.params.id, {
+            category_id: req.body.category_id,
+            type_category: req.body.type_category,
+            date: req.body.date,
+            state: req.body.state,
+            amount: req.body.amount
+        });
 
         if(!Transaction) {
             return res.status(404).json({
@@ -50,8 +82,6 @@ exports.getTransactionsById = async (req, res, next) => {
 // @route POST /api/v1/transactions
 // @access Public
 exports.addTransaction = async (req, res, next) => {
-    // res.send('POST transaction');
-
     try {
         const { text, amount } = req.body;
 
