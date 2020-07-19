@@ -1,3 +1,4 @@
+// Utils functions
 export const utils = (startDate, endDate, transaction) => {
     // Search by date
   let filterByDate = transaction.filter(item => {
