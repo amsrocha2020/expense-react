@@ -41,6 +41,7 @@ const register = (props) => {
                 name="firstName"
                 id="firstName"
                 onChange={e => setFirstName(e.target.value)}
+                required
               />
               <span className="focus-input"></span>
             </div>
@@ -55,6 +56,7 @@ const register = (props) => {
                 name="lastName"
                 id="lastName"
                 onChange={e => setLastName(e.target.value)}
+                required
               />
               <span className="focus-input"></span>
             </div>
@@ -63,7 +65,7 @@ const register = (props) => {
               className="wrap-input validate-input"
               data-validate="Email is required"
             >
-              <input className="input" type="email" name="email" id="email" onChange={e => setEmail(e.target.value)}/>
+              <input className="input" type="email" name="email" id="email" onChange={e => setEmail(e.target.value)} required/>
               <span className="focus-input"></span>
             </div>
             <span className="pb-1">PASSWORD</span>

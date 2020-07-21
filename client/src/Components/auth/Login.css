@@ -30,6 +30,10 @@
     flex-wrap: wrap;
 }
 
+.login-form-btn span {
+    color: #fff;
+}
+
 .login-form-title {
     font-size: 30px;
     color: #555555;

@@ -8,20 +8,48 @@ import { GlobalContext } from "../../context/GlobalState";
 import './Budgets.css';
 
 const Budgets = () => {
-    const [ month, setMonth ] = useState('');
-    const [ year, setYear ] = useState('');
-    const [ value, setValue ] = useState('');
-    const { budgets, getBudgets } = useContext(GlobalContext);
-    const { addBudget, deleteBudgets } = useContext(GlobalContext);
+    // Current Year
+    const date = new Date();
+    const currentYear = date.getFullYear();
+    
+    const [month, setMonth] = useState('');
+    const [year, setYear] = useState('');
+    const [yearBudget, setYearBudget] = useState(currentYear);
+    const [value, setValue] = useState('');
+    const {budgets, getBudgets} = useContext(GlobalContext);
+    const {addBudget, deleteBudgets} = useContext(GlobalContext);
     const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
+    const [budgetsYear, setBudgetsYear] = useState(budgets);
 
     const chart = () => {
-        
-        const chartValue = budgets.map((budget) => {
-            return {label: monthNames[budget.month - 1], y: budget.value}
+       
+        // let sumPerMonthYear = budgetsYear.reduce(function(accumulator, cur) {
+        //     let val =  cur.month + '-' + cur.year , 
+        //             found = accumulator.find(function(elem) {
+        //                 console.log("inside > ", cur.month + '-' + cur.year)
+        //             return elem.month + '-' + elem.year === val 
+        //         });
+        //     if (found) found.value += cur.value;
+        //     else accumulator.push(cur);
+        //     return accumulator;
+        //   }, []);
+          
+        // console.log("sumPerMonthYear > ", sumPerMonthYear)
+
+        const chartValue = budgetsYear.map((budget) => {
+            return { label: monthNames[budget.month - 1], 
+                     y: budget.value
+            }
         })
         return [chartValue];
-      };
+    };
+
+    const handlerChangeBudgetYear = (e) => {
+        setYearBudget(e.target.value)
+        
+        const budgetYear =  budgets.filter(budget => budget.year === Number(e.target.value))
+        setBudgetsYear(budgetYear)
+    }
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -52,7 +80,7 @@ const Budgets = () => {
                                 onChange={(e) => setMonth(e.target.value)}
                                 custom
                             >
-                                <option>Select Type Category</option>
+                                <option>Select Month</option>
                                 <option value={1}>January</option>
                                 <option value={2}>February</option>
                                 <option value={3}>March</option>
@@ -76,7 +104,7 @@ const Budgets = () => {
                                 onChange={(e) => setYear(e.target.value)}
                                 custom
                             >
-                                <option>Select Type Category</option>
+                                <option>Select Year</option>
                                 <option value={2020}>2020</option>
                                 <option value={2021}>2021</option>
                                 <option value={2022}>2022</option>
@@ -101,8 +129,30 @@ const Budgets = () => {
             </Form>
             <Row>
                 <Col xs={3}>
+                    <Form>
+                    <Form.Group controlId="exampleForm.SelectCustomSizeLg2">
+                            <Form.Control
+                                as="select"
+                                value={yearBudget}
+                                onChange={(e) => handlerChangeBudgetYear(e)}
+                                custom
+                            >
+                                <option>Select Year</option>
+                                <option value={2020}>2020</option>
+                                <option value={2021}>2021</option>
+                                <option value={2022}>2022</option>
+                                <option value={2023}>2023</option>
+                                <option value={2024}>2024</option>
+                                <option value={2025}>2025</option>
+                            </Form.Control>
+                        </Form.Group>
+                    </Form>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={3}>
                     <ul className="list">
-                        {budgets.map((budget) => (
+                        {budgetsYear.map((budget) => (
                             <li className="mb-3" key={budget._id}>
                                 <Button 
                                     key={budget.id} 

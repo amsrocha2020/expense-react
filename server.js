@@ -3,6 +3,7 @@ const express = require('express');
 const dotenv = require('dotenv');
 const morgan = require('morgan');
 const connectDB = require('./config/db');
+const fileUpload = require('express-fileupload');
 
 dotenv.config({ path: './config/config.env'});
 
@@ -14,6 +15,7 @@ const typeCategories = require('./routes/typeCategories');
 const transactions = require('./routes/transactions');
 //const signup = require('./routes/signin');
 const user = require('./routes/userRouter');
+const upload = require('./routes/uploadFile');
 
 const app = express();
 
@@ -29,6 +31,9 @@ app.use('/categories', categories);
 app.use('/dashboard', transactions);
 app.use('/typecategories', typeCategories);
 app.use('/users', user);
+
+app.use(fileUpload());
+app.use('/upload', upload);
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));

@@ -1,0 +1,33 @@
+.form-file-upload .custom-file-label {
+  font-size: 15px;
+  width: 50%;
+  left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.form-file-upload .progress {
+  width: 50%;
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.form-file-upload input.btn.btn-primary.btn-block.mt-4 {
+  width: 50%;
+  margin-left: 50%;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%);
+}
+
+.form-file-upload .alert.alert-info.alert-dismissible.fade.show {
+  font-size: 15px;
+}
+
+.form-file-upload .close span {
+  font-size: 25px;
+  top: 6px;
+  position: absolute;
+  right: 15px;
+}
+/*# sourceMappingURL=Upload.css.map */

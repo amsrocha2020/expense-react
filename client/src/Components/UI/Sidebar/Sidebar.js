@@ -35,7 +35,7 @@ const sidebar = (props) => {
         </div>
         <div className="sidebar-user">
           <img
-            src="./foto_rocha.jpeg"
+            src="./user.jpg"
             className="img-fluid rounded-circle mb-2"
             alt="Miguel Rocha"
           />

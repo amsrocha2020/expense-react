@@ -11,7 +11,7 @@ const CardsCategories = ({nameCategory, categoryId}) => {
     const types = typecategories.filter((typecategory) => typecategory.category_id === categoryId);
 
     return(
-        <Card style={{width: '200px'}}>
+        <Card className="mr-3">
             <Card.Header>{nameCategory}</Card.Header>
             <Card.Body>
                 <Card.Text>

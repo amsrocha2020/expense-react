@@ -22,11 +22,12 @@ const Dashboard = (props) => {
   const { transactions, getTransactions } = useContext(GlobalContext);
   const { modalTransaction, modalTrans } = useContext(GlobalContext);
 
+
   const [ startDate, setStartDate ] = useState(
     new Date().setDate(new Date().getDate() - 30)
   );
   const [ endDate, setEndDate ] = useState(new Date());
-  const [ search, setSearch ] = React.useState("");
+  const [ search, setSearch ] = useState('');
 
   let filterDate = utils(startDate, endDate, transactions);
   let valueAnual = utilsFilterBudget(startDate, endDate, budgets);
@@ -80,7 +81,7 @@ const Dashboard = (props) => {
       <div className="transactions">
         <Row>
           <Col className="mb-3" xs={12} sm={2}>
-            <Button  variant="success" onClick={() => modalTrans(true)}>
+            <Button variant="success" onClick={() => modalTrans(true)}>
               Add Transaction
             </Button>
           </Col>

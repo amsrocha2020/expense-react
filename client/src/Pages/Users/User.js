@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Form, Col, Card, Button } from "react-bootstrap";
 
 import { GlobalContext } from "../../context/GlobalState";
@@ -12,10 +12,10 @@ const User = (props) => {
   <React.Fragment>
   {user ? (
     <Col xs={12} sm={12} lg={8}>
-      <Card body>
+      <Card body className="card-user">
       <div className="text-center">
         <div className="m-b">
-          <img src="./foto_rocha.jpeg" style={{ width: 100 }} className="img-fluid rounded-circle mb-2" alt="profile" />
+          <img src="./user.jpg" style={{ width: 100 }} className="img-fluid rounded-circle mb-2" alt="profile" />
         </div>
         <div>
         

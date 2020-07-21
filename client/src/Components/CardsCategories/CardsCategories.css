@@ -1,5 +1,7 @@
 .typeCategories .card {
   color: #000;
+  display: inline-block;
+  width: 200px;
 }
 
 .typeCategories .card .list {

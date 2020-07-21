@@ -1,3 +1,14 @@
+.card-user {
+  left: 50%;
+  -webkit-transform: translateX(-25%);
+          transform: translateX(-25%);
+  margin-bottom: 0px;
+}
+
+.user-form .form-group {
+  margin-bottom: 30px;
+}
+
 .user-form .form-label {
   color: #000;
   font-size: 14px;

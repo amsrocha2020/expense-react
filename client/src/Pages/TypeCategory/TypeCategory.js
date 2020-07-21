@@ -57,15 +57,11 @@ const TypeCategory = () => {
             </Col>
         </Row>
       </Form>
-      <CardGroup>
-        <Row>
+      {/* <CardGroup> */}
           {categories.map((category) => (
-            <Col >
               <CardsCategories nameCategory={category.name} categoryId={category._id} />
-            </Col>
           ))}
-        </Row>
-      </CardGroup>
+      {/* </CardGroup> */}
     </div>
   );
 };

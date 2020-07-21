@@ -13,7 +13,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   const token = localStorage.getItem('auth-token');
 
   const checkAuth = () => {
-    console.log(token)
     if (token || isAuthUser) return true;
     return false;
   }

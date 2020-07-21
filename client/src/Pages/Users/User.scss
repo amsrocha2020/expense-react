@@ -1,4 +1,13 @@
+.card-user {
+    left: 50%;
+    transform: translateX(-25%);
+    margin-bottom: 0px;
+}
+
 .user-form {
+  .form-group {
+    margin-bottom: 30px;
+  }
   .form-label {
     color: #000;
     font-size: 14px;

@@ -3,12 +3,12 @@ import './CardModule.css';
 
 const CardModule = (props) => (
    <Fragment>
-    <div class="module-card-wrap">
-        <div class="module-card">
-        <div class="module-card-title">{props.title}</div>
-        <div class="module-card-meta">     
+    <div className="module-card-wrap">
+        <div className="module-card">
+        <div className="module-card-title">{props.title}</div>
+        <div className="module-card-meta">     
         </div> 
-        <div class="module-card-bottom">
+        <div className="module-card-bottom">
             {props.children}
         </div>
         </div>
