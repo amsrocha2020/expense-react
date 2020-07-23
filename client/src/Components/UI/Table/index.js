@@ -1,10 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button, Spinner, Table } from 'react-bootstrap';
 
 import moment from 'moment';
-import Modal from '../Modal/Modal';
-import Form from '../Forms/Forms';
-import Pagination from '../../Pagination/Pagination';
+import Modal from '../Modal';
+import Form from '../Forms';
+import Pagination from '../../Pagination';
 
 import "./Table.css";
 
@@ -13,13 +13,13 @@ import { GlobalContext } from "../../../context/GlobalState";
 const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
   const { transactions, getTransactions } = useContext(GlobalContext);
   const { categories, getCategories } = useContext(GlobalContext);
-  const { loadingFx } = useContext(GlobalContext);
   const { deleteTransaction } = useContext(GlobalContext);
+  const { loadingFx } = useContext(GlobalContext);
   
-  const [ modalShow, setModalShow ] = useState(false);
-  const [ currentPage, setCurrentPage ] = useState(1);
-  const [ contentPerPage ] = useState(5);
-  const [ transactionId, setTransactionId ] = useState();
+  const [contentPerPage] = useState(5);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [modalShow, setModalShow] = useState(false);
+  const [transactionId, setTransactionId] = useState();
 
   // Get current lines table - Pagination
   const indexOfLastRow = currentPage * contentPerPage;
@@ -39,8 +39,8 @@ const TableContent = ({ searchStartDate, searchEndDate, searchInput }) => {
   const paginate = pageNumber => setCurrentPage(pageNumber)
   
   useEffect(() => {
-      loadingFx()
-      getTransactions()
+      // loadingFx()
+      // getTransactions()
       getCategories()
   }, [])
 

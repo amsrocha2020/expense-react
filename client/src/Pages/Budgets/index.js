@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Button, Form, Col, Row } from "react-bootstrap";
-import CardModule from '../../Components/CardModule/CardModule';
+
+import CardModule from '../../Components/CardModule';
 import ChartBar from '../../Components/Charts/Bar';
 
 import { GlobalContext } from "../../context/GlobalState";
@@ -12,14 +13,16 @@ const Budgets = () => {
     const date = new Date();
     const currentYear = date.getFullYear();
     
-    const [month, setMonth] = useState('');
-    const [year, setYear] = useState('');
+    const { addBudget, deleteBudgets } = useContext(GlobalContext);
+    const { budgets, getBudgets } = useContext(GlobalContext);
+
     const [yearBudget, setYearBudget] = useState(currentYear);
-    const [value, setValue] = useState('');
-    const {budgets, getBudgets} = useContext(GlobalContext);
-    const {addBudget, deleteBudgets} = useContext(GlobalContext);
-    const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
     const [budgetsYear, setBudgetsYear] = useState(budgets);
+    const [month, setMonth] = useState('');
+    const [value, setValue] = useState('');
+    const [year, setYear] = useState('');
+    
+    const monthNames = ["January", "February", "March", "April", "May", "June","July", "August", "September", "October", "November", "December"];
 
     const chart = () => {
        

@@ -1,5 +1,6 @@
-import React, { Fragment, useContext, useEffect } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { useHistory } from "react-router-dom";
+
 import { GlobalContext } from '../../context/GlobalState';
 
 function AuthOptions() {
@@ -10,9 +11,9 @@ function AuthOptions() {
     const register = () => history.push("/register");
     const login    = () => history.push("/login");
     const logout   = () => {
-        user = {}
-        logOut(user)
-        history.push("/login")
+        user = {};
+        logOut(user);
+        history.push("/login");
     };
 
     return(

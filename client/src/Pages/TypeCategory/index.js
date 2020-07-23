@@ -1,15 +1,16 @@
 import React, { useState, useContext, useEffect } from "react";
-import { CardGroup, Button, Form, Col, Row } from "react-bootstrap";
-import CardsCategories from '../../Components/CardsCategories/CardsCategories';
+import { Button, Form, Col, Row } from "react-bootstrap";
+
+import CardsCategories from '../../Components/CardsCategories';
 
 import { GlobalContext } from "../../context/GlobalState";
 
 const TypeCategory = () => {
+  const { getTypeCategories, addTypeCategory } = useContext(GlobalContext);
+  const { categories, getCategories } = useContext(GlobalContext);
 
   const [text, setText] = useState('');
   const [catId, setCat] = useState('');
-  const { categories, getCategories } = useContext(GlobalContext);
-  const { getTypeCategories, addTypeCategory } = useContext(GlobalContext);
   
   const onSubmit = (e) => {
     e.preventDefault();
@@ -57,11 +58,9 @@ const TypeCategory = () => {
             </Col>
         </Row>
       </Form>
-      {/* <CardGroup> */}
-          {categories.map((category) => (
-              <CardsCategories nameCategory={category.name} categoryId={category._id} />
-          ))}
-      {/* </CardGroup> */}
+        {categories.map((category) => (
+          <CardsCategories nameCategory={category.name} categoryId={category._id} />
+        ))}
     </div>
   );
 };

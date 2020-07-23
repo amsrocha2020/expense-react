@@ -1,10 +1,10 @@
-import React from 'react'
+import React from 'react';
 
 const Pagination = ({ contentPerPage, totalRows, paginate }) => {
-    const pageNumbers = []
+    const pageNumbers = [];
 
     for(let i = 1; i <= Math.ceil(totalRows / contentPerPage); i++) {
-        pageNumbers.push(i)
+        pageNumbers.push(i);
     }
 
     return(
@@ -23,4 +23,4 @@ const Pagination = ({ contentPerPage, totalRows, paginate }) => {
 
 }
 
-export default Pagination
+export default Pagination;

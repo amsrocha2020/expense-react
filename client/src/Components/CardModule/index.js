@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+
 import './CardModule.css';
 
 const CardModule = (props) => (
@@ -14,6 +15,6 @@ const CardModule = (props) => (
         </div>
     </div>
   </Fragment>
-    );
+);
 
 export default CardModule;

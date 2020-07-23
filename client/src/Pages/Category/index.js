@@ -6,10 +6,11 @@ import { GlobalContext } from "../../context/GlobalState";
 import './Category.css';
 
 const Categories = () => {
-  const [text, setText] = useState("");
   const { categories, getCategories } = useContext(GlobalContext);
   const { addCategory, deleteCategory } = useContext(GlobalContext);
-
+  
+  const [text, setText] = useState("");
+  
   const onSubmit = (e) => {
     e.preventDefault();
 

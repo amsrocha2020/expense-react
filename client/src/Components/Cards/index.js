@@ -16,6 +16,6 @@ const cards = (props) => (
       </div>
     </div>
   </Fragment>
-    );
+);
 
-    export default cards;
+export default cards;

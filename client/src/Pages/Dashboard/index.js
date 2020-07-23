@@ -4,28 +4,29 @@ import DatePicker from "react-datepicker";
 
 import moment from "moment";
 
-import Cards from "../../Components/Cards/Cards";
-import Modal from "../../Components/UI/Modal/Modal";
-import Forms from "../../Components/UI/Forms/Forms";
-import Table from "../../Components/UI/Table/Table";
+import Cards from "../../Components/Cards";
+import Modal from "../../Components/UI/Modal";
+import Forms from "../../Components/UI/Forms";
+import Table from "../../Components/UI/Table";
 import Doughnut from "../../Components/Charts/Doughnut";
 import Crosshair from "../../Components/Charts/Crosshair";
-import CardModule from '../../Components/CardModule/CardModule';
-import { utils, utilsFilterBudget } from '../../Utils/Utils';
+import CardModule from '../../Components/CardModule';
+import { utils, utilsFilterBudget } from '../../Utils';
 
 import { GlobalContext } from "../../context/GlobalState";
 
 import "./Dashboard.css";
 
 const Dashboard = (props) => {
-  const { budgets, getBudgets } = useContext(GlobalContext);
   const { transactions, getTransactions } = useContext(GlobalContext);
   const { modalTransaction, modalTrans } = useContext(GlobalContext);
+  const { budgets, getBudgets } = useContext(GlobalContext);
 
 
   const [ startDate, setStartDate ] = useState(
     new Date().setDate(new Date().getDate() - 30)
   );
+  
   const [ endDate, setEndDate ] = useState(new Date());
   const [ search, setSearch ] = useState('');
 

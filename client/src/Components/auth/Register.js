@@ -1,26 +1,26 @@
 import React, { Fragment, useState, useContext } from "react";
 import { useHistory } from 'react-router-dom';
-import { GlobalContext } from '../../context/GlobalState';
 import axios from 'axios';
+
+import { GlobalContext } from '../../context/GlobalState';
 
 import "./Login.css";
 
 const register = (props) => {
-    const [ email, setEmail ] = useState();
-    const [ password, setPassword ] = useState();
-    const [ firstName, setFirstName ] = useState();
-    const [ lastName, setLastName ] = useState();
+    const [firstName, setFirstName] = useState();
+    const [lastName, setLastName] = useState();
+    const [password, setPassword] = useState();
+    const [email, setEmail] = useState();
 
     const { logIn } = useContext(GlobalContext);
     const history = useHistory();
 
     const submit = async (e) => {
         e.preventDefault();
+        
         const newUser = { firstName, lastName, email, password};
         await axios.post("/users/register",newUser);
-        // const loginRes = await axios.post("/users/login", { email, password });
         logIn(newUser)
-        // localStorage.setItem("auth-token", loginRes.data.token);
         history.push("/");
     }
 

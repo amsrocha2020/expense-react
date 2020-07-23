@@ -1,13 +1,13 @@
 import React from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
-import Dashboard from "./Pages/Dashboard/Dashboard";
-import Budgets from "./Pages/Budgets/Budgets";
-import Category from "./Pages/Category/Category";
-import TypeCategory from "./Pages/TypeCategory/TypeCategory";
+import Dashboard from "./Pages/Dashboard";
+import Budgets from "./Pages/Budgets";
+import Category from "./Pages/Category";
+import TypeCategory from "./Pages/TypeCategory";
 import Login from "./Components/auth/Login";
 import Register from "./Components/auth/Register";
-import User from "./Pages/Users/User";
+import User from "./Pages/Users";
 import PrivateRoute from "./PrivateRoute";
 
 import { GlobalProvider } from "./context/GlobalState";
@@ -16,7 +16,6 @@ import "./App.css";
 
 const App = () => {
   return (
-
     <GlobalProvider>
       <BrowserRouter>
         <Switch>

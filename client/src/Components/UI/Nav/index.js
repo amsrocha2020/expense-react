@@ -1,8 +1,10 @@
 import React, { useContext } from "react";
-import { GlobalContext } from "../../../context/GlobalState";
-import AuthOptions from "../../auth/AuthOptions";
-import { Dropdown, DropdownButton } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { Dropdown, DropdownButton } from "react-bootstrap";
+
+import AuthOptions from "../../auth/AuthOptions";
+
+import { GlobalContext } from "../../../context/GlobalState";
 
 const nav = (props) => {
   const { leftOpen, sidebar } =  useContext(GlobalContext);

@@ -1,13 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { GlobalContext } from "./context/GlobalState";
 import { Redirect, Route } from "react-router-dom";
-import Sidebar from "./Components/UI/Sidebar/Sidebar";
-import Nav from "./Components/UI/Nav/Nav";
-import Footer from "./Components/UI/Footer/Footer";
+
+import Sidebar from "./Components/UI/Sidebar";
+import Nav from "./Components/UI/Nav";
+import Footer from "./Components/UI/Footer";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const { leftOpen } =  useContext(GlobalContext);
   const { isAuthUser } = useContext(GlobalContext);
+  
   let leftOpenSide = leftOpen ? "open" : "closed";
 
   const token = localStorage.getItem('auth-token');
@@ -23,16 +25,16 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       render={(props) =>
         checkAuth() ? (
           <React.Fragment>
-          <div className="wrapper">
-            <Sidebar />
-            <div className={`main ${leftOpenSide}`}>
-              <Nav />
-              <div className="content">
-                <Component {...props} />
+            <div className="wrapper">
+              <Sidebar />
+              <div className={`main ${leftOpenSide}`}>
+                <Nav />
+                <div className="content">
+                  <Component {...props} />
+                </div>
               </div>
             </div>
-          </div>
-        <Footer />
+            <Footer />
         </React.Fragment>
         ) : (
           <Redirect to={{ pathname: "/login", state: { from: props.location } }} />

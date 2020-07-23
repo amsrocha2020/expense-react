@@ -1,9 +1,8 @@
-import React from 'react'
+import React from 'react';
 
-import './Footer.css'
+import './Footer.css';
 
 const Footer = () => {
-
     return(
         <div className="footer">
             <span>Copyright © 2020 Miguel Rocha. All rights reserved.</span>
@@ -20,4 +19,4 @@ const Footer = () => {
     )
 }
 
-export default Footer
+export default Footer;

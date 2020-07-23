@@ -12,11 +12,11 @@ const Forms = ({ transactionId }) => {
   const { categories,getCategories } = useContext(GlobalContext);
   const { modalTrans } = useContext(GlobalContext);
 
-  const [ selectState, setSelectState ] = useState("");
-  const [ startDate, setStartDate ] = useState(new Date());
-  const [ typeCat, setTypeCat ] = useState("");
-  const [ amount, setAmount ] = useState("");
-  const [ catId, setCat ] = useState("");
+  const [startDate, setStartDate] = useState(new Date());
+  const [selectState, setSelectState] = useState("");
+  const [typeCat, setTypeCat] = useState("");
+  const [amount, setAmount] = useState("");
+  const [catId, setCat] = useState("");
 
   let [ types, setTypes ] = useState(typecategories);
 
@@ -54,9 +54,8 @@ const Forms = ({ transactionId }) => {
   }
 
   useEffect(() => { 
-    if( transactionId ) {
-      getTransactionsById(transactionId);
-    } 
+    if( transactionId ) getTransactionsById(transactionId);
+    
       getCategories()
       getTypeCategories()  
   }, []);
