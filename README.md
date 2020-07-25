@@ -15,6 +15,8 @@ This Project has the main objective of Personal Financial Management, so that th
 
 This project is linked to the MongoDB database, so it is important to have an account to link the project to that database.
 
+
+
 ### Prerequisites
 
 MongoDB Database
