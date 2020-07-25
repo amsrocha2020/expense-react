@@ -2,6 +2,15 @@
 
 This Project has the main objective of Personal Financial Management, so that the user knows how much leaves his wallet and how much he enters.
 
+![](/public/login.png)
+![](/public/register.png)
+![](/public/dashboard1.png)
+![](/public/dashboard2.png)
+![](/public/dashboard3.png)
+![](/public/budget.png)
+![](/public/categories.png)
+![](/public/account.png)
+
 ## Getting Started
 
 This project is linked to the MongoDB database, so it is important to have an account to link the project to that database.
