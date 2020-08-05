@@ -27,7 +27,7 @@
     "bcryptjs": "^2.4.3",
     "concurrently": "^5.2.0",
     "connected-react-router": "^6.8.0",
-    "express-fileupload": "^1.1.7-alpha.4",
+    "express-fileupload": "^1.1.9",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.20",
     "nodemon": "^2.0.3",
